@@ -6,11 +6,10 @@ import java.util.List;
 public class Activity {
 	
 	private List<TrackPoint> trackPoints;
-//	private String activityName;
+	private String activityName;
 	
-	
-	
-	public Activity () {
+	public Activity (String name) {
+		activityName = name;
 		trackPoints = new LinkedList<TrackPoint>();
 	}
 	
@@ -55,11 +54,24 @@ public class Activity {
 							Integer.parseInt(endTime.substring(6, 8)) - Integer.parseInt(startTime.substring(6, 8)));
 	}
 	
-	public void getAvgCadance() {
-		
+	public double getAvgCadance() {
+		double cadance = 0;
+		for(int i = 0; i < trackPoints.size(); i++) {
+			cadance += trackPoints.get(i).getCadence();
+		}
+		return cadance;
 	}
 	public int size() {
 		return trackPoints.size();
+	}
+	
+	@Override
+	public String toString() {
+		return "Activity: " + activityName + "\n" 
+			   + getAvgHeartRate() 	+"\n"+ 
+				 getDistance() 		+"\n"+
+				 getAvgCadance() 	+"\n"+ 
+				 getTime();
 	}
 
 }

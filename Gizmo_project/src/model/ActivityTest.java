@@ -46,7 +46,7 @@ class ActivityTest {
 	void setUp() throws Exception {
 		
 		dataPoint = new LinkedList<String>();
-		activity = new Activity();
+		activity = new Activity("Walking");
 	}
 
 	@AfterEach
@@ -74,9 +74,7 @@ class ActivityTest {
 		}
 		
 		
-		System.out.println("Avg heartrate: " + activity.getAvgHeartRate());
-		System.out.println("Total distance: " + activity.getDistance());
-		System.out.println("Duration: " + activity.getTime());
+		System.out.println(activity.toString());
 	
 	}
 
