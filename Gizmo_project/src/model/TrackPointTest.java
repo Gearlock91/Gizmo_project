@@ -18,6 +18,31 @@ class TrackPointTest {
 	private Activity activityList;
 	private Scanner s;
 	
+	public List<String> collectPoints(String s){
+		dataPoint.clear();
+		char character;
+		String line = "";
+		String holdLine = "";
+		
+		line = s;
+		for(int i = 0; i < line.length() ; i++) {
+			character = line.charAt(i);
+			if(character == ';' ) {
+				dataPoint.add(holdLine);
+				holdLine = "";
+			}
+			else if(character == ',') {
+				character = '.';
+				holdLine += character;
+			}
+			else {
+				holdLine += character;
+			}
+		}
+		dataPoint.add(holdLine);
+		return dataPoint;
+	}
+	
 	@BeforeEach
 	void setUp() throws Exception {
 		
@@ -52,31 +77,6 @@ class TrackPointTest {
 		for (int i = 0; i < activityList.size(); i++) {
 			System.out.println(activityList.getPoint(i).toString());
 		}
-	}
-	
-	public List<String> collectPoints(String s){
-		dataPoint.clear();
-		char character;
-		String line = "";
-		String holdLine = "";
-		
-		line = s;
-		for(int i = 0; i < line.length() ; i++) {
-			character = line.charAt(i);
-			if(character == ';' ) {
-				dataPoint.add(holdLine);
-				holdLine = "";
-			}
-			else if(character == ',') {
-				character = '.';
-				holdLine += character;
-			}
-			else {
-				holdLine += character;
-			}
-		}
-		dataPoint.add(holdLine);
-		return dataPoint;
 	}
 
 }
