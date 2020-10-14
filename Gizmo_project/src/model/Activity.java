@@ -23,12 +23,21 @@ public class Activity {
 		return trackPoints.get(i);
 	}
 	
-	public void getDistance() {
+	public double getDistance() {
+		double distance = 0;
+		for(int i = 0; i < trackPoints.size(); i++) {
+			distance += trackPoints.get(i).getDistance();
+		}
 		
+		return distance;
 	}
 	
-	public void getAvgHeartRate() {
-		
+	public int getAvgHeartRate() {
+		double sumHeartRate = 0;
+		for(int i = 0; i < trackPoints.size(); i++) {
+			sumHeartRate += trackPoints.get(i).getHart();
+		}
+		return (int) (sumHeartRate / trackPoints.size());
 	}
 	
 	public double getTime() {

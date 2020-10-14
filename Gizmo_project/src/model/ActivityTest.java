@@ -1,7 +1,6 @@
 package model;
 
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -14,7 +13,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class TrackPointTest {
+class ActivityTest {
 
 	private List<String> dataPoint;
 	private Activity activity;
@@ -80,9 +79,7 @@ class TrackPointTest {
 			System.out.println(activity.getPoint(i).toString());
 		}
 		
-		
-		assertEquals("11:50:16", activity.getPoint(5).getTime());
-		assertEquals(160.0, activity.getPoint(18).getCadence());
+		System.out.println(activity.getAvgHeartRate());
 	}
 
 }

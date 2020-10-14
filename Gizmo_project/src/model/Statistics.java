@@ -1,5 +1,9 @@
 package model;
 
-public class Statistics {
-
+public class Statistics  {
+	
+	public Statistics() {
+		
+	}
+	
 }
