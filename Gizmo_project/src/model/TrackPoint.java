@@ -1,6 +1,6 @@
 package model;
 
-
+import java.util.List;
 
 public class TrackPoint {
 
@@ -12,23 +12,23 @@ public class TrackPoint {
 	private double longitude;
 	private double altitude;
 	private double distance;
-	private int heartRate;
+	private double heartRate;
 	private double speed;
 	private double cadence;
 
 	
-	public TrackPoint(String[] d) {
+	public TrackPoint(List<String> d) {
 		
-		date = d[0];
-		time = d[1];
-		elapsedTime = Integer.parseInt(d[2]);
-		latitude = Double.parseDouble(d[3]);
-		longitude = Double.parseDouble(d[4]);
-		altitude = Double.parseDouble(d[5]);
-		distance = Double.parseDouble(d[6]);
-		heartRate = Integer.parseInt(d[7]);
-		speed = Double.parseDouble(d[8]);
-		cadence = Double.parseDouble(d[9]);
+		date = d.get(0);
+		time = d.get(1);
+		elapsedTime = Integer.parseInt(d.get(2));
+		latitude = Double.parseDouble(d.get(3));
+		longitude = Double.parseDouble(d.get(4));
+		altitude = Double.parseDouble(d.get(5));
+		distance = Double.parseDouble(d.get(6));
+		heartRate = Double.parseDouble(d.get(7));
+		speed = Double.parseDouble(d.get(8));
+		cadence = Double.parseDouble(d.get(9));
 		
 	}
 	public String getDate() {
@@ -59,7 +59,7 @@ public class TrackPoint {
 		return distance;
 		
 	}
-	public int getHart() {
+	public double getHart() {
 		return heartRate;
 		
 	}
@@ -70,5 +70,13 @@ public class TrackPoint {
 	public double getCadence() {
 		return cadence;
 		
+	}
+	
+	@Override
+	public String toString() {
+		return date + " " + time + " " + elapsedTime + " " + 
+			   latitude + " " + longitude + " " + altitude + 
+			   " " + distance + " " + heartRate + " " + speed 
+			   + " " + cadence;
 	}
 }
