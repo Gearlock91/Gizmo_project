@@ -7,7 +7,6 @@ public class Activity {
 	
 	private List<TrackPoint> trackPoints;
 //	private String activityName;
-	private double durotation;
 	
 	
 	
@@ -28,7 +27,6 @@ public class Activity {
 		for(int i = 0; i < trackPoints.size(); i++) {
 			distance += trackPoints.get(i).getDistance();
 		}
-		
 		return distance;
 	}
 	
@@ -40,8 +38,21 @@ public class Activity {
 		return (int) (sumHeartRate / trackPoints.size());
 	}
 	
-	public double getTime() {
-		return durotation;
+	public String getTime() {
+//		int timehh = 0;
+//		int timemm = 0;
+//		int timess = 0; 
+		String startTime = trackPoints.get(0).getTime();
+		String endTime	 = trackPoints.get(trackPoints.size() - 1).getTime();
+		
+//		timehh += Integer.parseInt(endTime.substring(0, 2)) - Integer.parseInt(startTime.substring(0, 2));
+//		timemm += Integer.parseInt(endTime.substring(3, 5)) - Integer.parseInt(startTime.substring(3, 5));		
+//		timess += Integer.parseInt(endTime.substring(6, 8)) - Integer.parseInt(startTime.substring(6, 8));
+		
+		return String.format("%02d:%02d:%02d", 
+							Integer.parseInt(endTime.substring(0, 2)) - Integer.parseInt(startTime.substring(0, 2)), 
+							Integer.parseInt(endTime.substring(3, 5)) - Integer.parseInt(startTime.substring(3, 5)), 
+							Integer.parseInt(endTime.substring(6, 8)) - Integer.parseInt(startTime.substring(6, 8)));
 	}
 	
 	public void getAvgCadance() {
@@ -50,4 +61,5 @@ public class Activity {
 	public int size() {
 		return trackPoints.size();
 	}
+
 }

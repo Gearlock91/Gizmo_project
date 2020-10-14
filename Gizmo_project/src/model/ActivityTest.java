@@ -1,7 +1,5 @@
 package model;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -75,11 +73,11 @@ class ActivityTest {
 	    
 		}
 		
-		for (int i = 0; i < activity.size(); i++) {
-			System.out.println(activity.getPoint(i).toString());
-		}
 		
-		System.out.println(activity.getAvgHeartRate());
+		System.out.println("Avg heartrate: " + activity.getAvgHeartRate());
+		System.out.println("Total distance: " + activity.getDistance());
+		System.out.println("Duration: " + activity.getTime());
+	
 	}
 
 }
