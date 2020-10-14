@@ -1,21 +1,28 @@
 package model;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class Activity {
 	
 	private List<TrackPoint> trackPoints;
-	private String activityName;
+//	private String activityName;
 	private double durotation;
+	private int size;
 	
 	
 	
-	public Activity (String name) {
-		activityName = name;
+	public Activity () {
+		trackPoints = new LinkedList<TrackPoint>();
 	}
 	
 	public void addPoint(TrackPoint p) {
 		trackPoints.add(p);
+		size++;
+	}
+	
+	public TrackPoint getPoint(int i) {
+		return trackPoints.get(i);
 	}
 	
 	public void getDistance() {
@@ -32,5 +39,8 @@ public class Activity {
 	
 	public void getAvgCadance() {
 		
+	}
+	public int size() {
+		return size;
 	}
 }

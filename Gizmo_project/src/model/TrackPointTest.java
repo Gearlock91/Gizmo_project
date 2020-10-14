@@ -15,12 +15,14 @@ import org.junit.jupiter.api.Test;
 class TrackPointTest {
 
 	private List<String> dataPoint;
+	private Activity activityList;
 	private Scanner s;
 	
 	@BeforeEach
 	void setUp() throws Exception {
 		
-		dataPoint = new LinkedList<String>();	
+		dataPoint = new LinkedList<String>();
+		activityList = new Activity();
 	}
 
 	@AfterEach
@@ -32,33 +34,10 @@ class TrackPointTest {
 	void test() {
 		try {
 			s = new Scanner(new BufferedReader(new FileReader("trackData.txt")));
-			
-			
-			char character;
-			String line = "";
-			String holdLine = "";
-			
-			
-				line = s.next();
-				for(int i = 0; i < line.length() ; i++) {
-					character = line.charAt(i);
-					if(character == ';' ) {
-						dataPoint.add(holdLine);
-						holdLine = "";
-					}
-					else if(character == ',') {
-						character = '.';
-						holdLine += character;
-					}
-					else {
-						holdLine += character;
-					}
-				}
-				dataPoint.add(holdLine);
-				
 	
-			System.out.println(dataPoint.toString());
-	//		System.out.println(line + " Nothing");
+			while(s.hasNext()) {
+				activityList.addPoint(new TrackPoint(collectPoints(s.next())));
+			}
 			
 	    } catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -70,10 +49,34 @@ class TrackPointTest {
 	    
 		}
 		
+		for (int i = 0; i < activityList.size(); i++) {
+			System.out.println(activityList.getPoint(i).toString());
+		}
+	}
+	
+	public List<String> collectPoints(String s){
+		dataPoint.clear();
+		char character;
+		String line = "";
+		String holdLine = "";
 		
-		TrackPoint point = new TrackPoint(dataPoint);
-		
-		System.out.println(point.toString());
+		line = s;
+		for(int i = 0; i < line.length() ; i++) {
+			character = line.charAt(i);
+			if(character == ';' ) {
+				dataPoint.add(holdLine);
+				holdLine = "";
+			}
+			else if(character == ',') {
+				character = '.';
+				holdLine += character;
+			}
+			else {
+				holdLine += character;
+			}
+		}
+		dataPoint.add(holdLine);
+		return dataPoint;
 	}
 
 }
