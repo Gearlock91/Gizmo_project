@@ -4,7 +4,6 @@ import java.util.List;
 
 public class TrackPoint {
 
-	private String tPoint;
 	private String date;
 	private String time;
 	private int elapsedTime;

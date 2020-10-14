@@ -8,7 +8,6 @@ public class Activity {
 	private List<TrackPoint> trackPoints;
 //	private String activityName;
 	private double durotation;
-	private int size;
 	
 	
 	
@@ -18,7 +17,6 @@ public class Activity {
 	
 	public void addPoint(TrackPoint p) {
 		trackPoints.add(p);
-		size++;
 	}
 	
 	public TrackPoint getPoint(int i) {
@@ -41,6 +39,6 @@ public class Activity {
 		
 	}
 	public int size() {
-		return size;
+		return trackPoints.size();
 	}
 }

@@ -1,6 +1,8 @@
 package model;
 
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -77,6 +79,10 @@ class TrackPointTest {
 		for (int i = 0; i < activityList.size(); i++) {
 			System.out.println(activityList.getPoint(i).toString());
 		}
+		
+		
+		assertEquals("11:50:16", activityList.getPoint(5).getTime());
+		assertEquals(160.0, activityList.getPoint(18).getCadence());
 	}
 
 }
