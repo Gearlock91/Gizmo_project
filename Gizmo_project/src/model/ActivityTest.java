@@ -46,7 +46,7 @@ class ActivityTest {
 	void setUp() throws Exception {
 		
 		dataPoint = new LinkedList<String>();
-		activity = new Activity("Walking");
+		activity = new Activity("SuperActivity");
 	}
 
 	@AfterEach
@@ -57,10 +57,13 @@ class ActivityTest {
 	@Test
 	void test() {
 		try {
-			s = new Scanner(new BufferedReader(new FileReader("trackData.txt")));
-	
+			s = new Scanner(new BufferedReader(new FileReader("ClockData/activity_3034484985.csv")));
+			
+			boolean FirstLine  = true;
+			
 			while(s.hasNext()) {
-				activity.addPoint(new TrackPoint(collectPoints(s.next())));
+				if(FirstLine == true) {FirstLine = false; s.next();}	
+				else {activity.addPoint(new TrackPoint(collectPoints(s.next())));}			
 			}
 			
 	    } catch (FileNotFoundException e) {
@@ -72,8 +75,7 @@ class ActivityTest {
 	        }
 	    
 		}
-		
-		
+
 		System.out.println(activity.toString());
 	
 	}

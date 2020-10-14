@@ -22,11 +22,7 @@ public class Activity {
 	}
 	
 	public double getDistance() {
-		double distance = 0;
-		for(int i = 0; i < trackPoints.size(); i++) {
-			distance += trackPoints.get(i).getDistance();
-		}
-		return distance;
+		return trackPoints.get(trackPoints.size() - 1).getDistance();
 	}
 	
 	public int getAvgHeartRate() {
@@ -37,29 +33,34 @@ public class Activity {
 		return (int) (sumHeartRate / trackPoints.size());
 	}
 	
+	private int getDiff(String start, String end ,int posS, int posE) {
+		int End = Integer.parseInt(end.substring(posS, posE));
+		int Start = Integer.parseInt(start.substring(posS, posE));
+		
+		if(Start > End)
+			return Start - End;
+		else
+			return End - Start;
+	}
+	
 	public String getTime() {
-//		int timehh = 0;
-//		int timemm = 0;
-//		int timess = 0; 
+		
 		String startTime = trackPoints.get(0).getTime();
 		String endTime	 = trackPoints.get(trackPoints.size() - 1).getTime();
 		
-//		timehh += Integer.parseInt(endTime.substring(0, 2)) - Integer.parseInt(startTime.substring(0, 2));
-//		timemm += Integer.parseInt(endTime.substring(3, 5)) - Integer.parseInt(startTime.substring(3, 5));		
-//		timess += Integer.parseInt(endTime.substring(6, 8)) - Integer.parseInt(startTime.substring(6, 8));
+		int timeHH = getDiff(startTime, endTime,0, 2);
+		int timeMM = getDiff(startTime, endTime,3, 5);
+		int timeSS = getDiff(startTime, endTime,6, 8); 
 		
-		return String.format("%02d:%02d:%02d", 
-							Integer.parseInt(endTime.substring(0, 2)) - Integer.parseInt(startTime.substring(0, 2)), 
-							Integer.parseInt(endTime.substring(3, 5)) - Integer.parseInt(startTime.substring(3, 5)), 
-							Integer.parseInt(endTime.substring(6, 8)) - Integer.parseInt(startTime.substring(6, 8)));
+		return String.format("%02d:%02d:%02d", timeHH, timeMM, timeSS);
 	}
-	
+
 	public double getAvgCadance() {
 		double cadance = 0;
 		for(int i = 0; i < trackPoints.size(); i++) {
 			cadance += trackPoints.get(i).getCadence();
 		}
-		return cadance;
+		return (cadance / trackPoints.size());
 	}
 	public int size() {
 		return trackPoints.size();
@@ -68,7 +69,7 @@ public class Activity {
 	@Override
 	public String toString() {
 		return "Activity: " + activityName + "\n" 
-			   + getAvgHeartRate() 	+"\n"+ 
+			   + getAvgHeartRate()  +"\n"+ 
 				 getDistance() 		+"\n"+
 				 getAvgCadance() 	+"\n"+ 
 				 getTime();
