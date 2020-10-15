@@ -1,7 +1,6 @@
 package view;
 
 import java.awt.BorderLayout;
-
 import java.awt.GridLayout;
 import java.util.Arrays;
 
@@ -19,7 +18,7 @@ import javax.swing.SwingConstants;
 public class LoginScreen extends JPanel{
 
 	private static final long serialVersionUID = 1L;
-	
+	private boolean succecfullLogin = false;
 
     public LoginScreen(JFrame frame){
     	JPanel p = new JPanel(new BorderLayout(5,5));
@@ -46,6 +45,7 @@ public class LoginScreen extends JPanel{
     	     	  
           if(isPasswordCorrect(password.getPassword()) && isUserNameCorrect(userName.getText())){
         	JOptionPane.showMessageDialog(frame, "Success!");
+        	succecfullLogin = true;
         	
           }
           else if(opt == JOptionPane.CANCEL_OPTION)
@@ -53,6 +53,10 @@ public class LoginScreen extends JPanel{
           else
           	logIn(frame,p,userName,password);
          
+    }
+    
+    public boolean getLogIn() {
+    	return succecfullLogin;
     }
   
     
@@ -74,5 +78,4 @@ public class LoginScreen extends JPanel{
     	else
     		return Arrays.equals(correctPass, pass);
     }
-	
 }

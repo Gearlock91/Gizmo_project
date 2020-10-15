@@ -1,6 +1,5 @@
 package view;
 
-
 import java.awt.Color;
 
 import javax.swing.JFrame;
@@ -17,10 +16,22 @@ public class MainFrame extends JFrame{
         setVisible(true);
         setBackground(Color.darkGray);
         setLocationRelativeTo(null);
+        setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         
-        add(new LoginScreen(this));
+        LoginScreen logInSc = new LoginScreen(this);
+        MenuScreen mScreen = new MenuScreen();
         
+        setJMenuBar(mScreen.createMenuBar());
+        
+        add(logInSc);
+        
+        if(logInSc.getLogIn()) {
+        	
+        	remove(logInSc);
+        	add(mScreen);
+        	validate();
+        }
 	}
 	
 
