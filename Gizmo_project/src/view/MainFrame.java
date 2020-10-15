@@ -1,9 +1,10 @@
 package view;
 
+
 import java.awt.Color;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+
 
 public class MainFrame extends JFrame{
 
@@ -17,6 +18,10 @@ public class MainFrame extends JFrame{
         setBackground(Color.darkGray);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
         add(new LoginScreen(this));
+        
 	}
+	
+
 }
