@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -42,9 +43,47 @@ public class UserList extends LinkedList<User> implements IDao<User>{
 
 	@Override
 	public User save(User t) {
+
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		//int rowCount = 0;
+		//boolean saveSucess = false;
+		try {
+			//****This is just for checking the 'save' is a sucess. Count rows before save... ***
+		//	resultSet = dbConManagerSingleton.excecuteQuery("SELECT COUNT(id) FROM students");
+		//	resultSet.next();
+		//	rowCount = resultSet.getInt(1);
+			//System.out.println(rowCount); // Debug print
+			
+			//*******This is the main 'save' operation ***************************
+			preparedStatement = dbConManagerSingleton.prepareStatement(
+											  "INSERT INTO students (name, birth_year) " +
+											  "VALUES (?, ?) RETURNING id;");
+			preparedStatement.setString(1, t.getEmail());
+			preparedStatement.setString(2, t.getName());
+			preparedStatement.execute();
+			resultSet = preparedStatement.getResultSet();
+			resultSet.next();
+			int generatedId = resultSet.getInt(1);
+			return new User(generatedId, t.getEmail(), t.getName());
+			// ********************************************************************
+			
+			// **** Check nbr of rows after 'save'. Compare with previous row count *****
+//			resultSet = dbConManagerSingleton.excecuteQuery("SELECT COUNT(id) FROM students");
+//			resultSet.next();
+//			int newRowCount = resultSet.getInt(1);
+//			if( newRowCount == (rowCount + 1)) // Check if table is one more row after 'save'
+//				saveSucess = true;
+//			System.out.format("Previous row count: %d    Current row count: %d", rowCount, newRowCount);
+		}
+		catch ( SQLException e) {
+			e.printStackTrace();
+		}
 		
-		
+		return new User("No Name", 0);
 	}
+		
+	
 
 	@Override
 	public void update(User t, String[] params) {
