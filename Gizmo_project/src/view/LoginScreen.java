@@ -69,9 +69,7 @@ public class LoginScreen extends JPanel{
     public boolean isUserNameCorrect(String userName) {
     	
     	String correctUserName = "";
-    	
-    	System.out.println(UserList.getInstance().getFirst().getUserName());
-    	
+
     	for(int i = 0; i < UserList.getInstance().size(); i++) {
     		if(UserList.getInstance().get(i).getUserName().equals(userName)) {
     			correctUserName = UserList.getInstance().get(i).getUserName();
@@ -87,7 +85,15 @@ public class LoginScreen extends JPanel{
     
     public boolean isPasswordCorrect(char[] pass) {
     	
-    	char [] correctPass = {'n','m','o'};
+    	char [] correctPass = null;
+    	
+    	for(int i = 0; i < UserList.getInstance().size(); i++) {
+    		if(Arrays.equals(UserList.getInstance().get(i).getPassword(), pass)) {
+    			System.out.println("Hejo hopp");
+    			correctPass = UserList.getInstance().get(i).getPassword();
+    		}
+    			
+    	}
     	
     	if(pass.length != correctPass.length)
     		return false;
@@ -107,7 +113,7 @@ public class LoginScreen extends JPanel{
     	JTextField e = new JTextField();
     	JTextField n = new JTextField();
     	JTextField u = new JTextField();
-    	JTextField pass = new JTextField();
+    	JPasswordField pass = new JPasswordField();
     	
     	rControl.add(e);
     	rControl.add(n);
@@ -116,6 +122,6 @@ public class LoginScreen extends JPanel{
     	r.add(rControl, BorderLayout.CENTER);
     	JOptionPane.showMessageDialog(frame, r, "Register a user",JOptionPane.OK_CANCEL_OPTION);
     	
-    	new RegisterUser(e.getText(), n.getText(), u.getText(), pass.getText());
+    	new RegisterUser(e.getText(), n.getText(), u.getText(), pass.getPassword());
     }
 }

@@ -6,11 +6,11 @@ public class User {
 	private int age;
 	private double weight;
 	private int maxHeart;
-	private String password;
+	private char[] password;
 	private String email;
 	private String userName;
 	
-	public User(String email,String name, String userName, String password) {
+	public User(String email,String name, String userName, char[] password) {
 		
 		this.name = name;
 		this.userName = userName;
@@ -41,7 +41,7 @@ public class User {
 		return email;
 		
 	}
-	public String getPassword() {
+	public char[] getPassword() {
 		return password;
 		
 	}
@@ -60,7 +60,7 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-    public void setPassword(String password){
+    public void setPassword(char[] password){
         this.password = password;
     }
 }
