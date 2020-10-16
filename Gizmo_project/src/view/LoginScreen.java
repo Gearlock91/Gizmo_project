@@ -13,6 +13,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import controller.RegisterUser;
+import model.UserList;
+
 
 
 public class LoginScreen extends JPanel{
@@ -33,6 +36,9 @@ public class LoginScreen extends JPanel{
         JPasswordField password = new JPasswordField();
         controls.add(password);
         JButton register = new JButton("Register");
+        
+        register.addActionListener(e -> {createRegisterPanel(frame,p);});
+        
         controls.add(register);
         p.add(controls, BorderLayout.CENTER);
 
@@ -61,7 +67,17 @@ public class LoginScreen extends JPanel{
   
     
     public boolean isUserNameCorrect(String userName) {
-    	String correctUserName = "Andreas";
+    	
+    	String correctUserName = "";
+    	
+    	System.out.println();
+    	
+    	for(int i = 0; i < UserList.getInstance().size(); i++) {
+    		if(UserList.getInstance().get(i).getUserName().equals(userName)) {
+    			correctUserName = UserList.getInstance().get(i).getUserName();
+    		}
+    			
+    	}
     	
     	if(userName.length() != correctUserName.length())
     		return false;
@@ -77,5 +93,29 @@ public class LoginScreen extends JPanel{
     		return false;
     	else
     		return Arrays.equals(correctPass, pass);
+    }
+    
+    private void createRegisterPanel(JFrame frame, JPanel p) {
+    	JPanel r = new JPanel(new BorderLayout(5,5));
+    	JPanel rLabel = new JPanel(new GridLayout(4,1));
+    	rLabel.add(new JLabel("Email to register: "));
+    	rLabel.add(new JLabel("Name: "));
+    	rLabel.add(new JLabel("Username: "));
+    	rLabel.add(new JLabel("Password: "));
+    	r.add(rLabel, BorderLayout.LINE_START);
+    	JPanel rControl = new JPanel(new GridLayout(4,1));
+    	JTextField e = new JTextField();
+    	JTextField n = new JTextField();
+    	JTextField u = new JTextField();
+    	JTextField pass = new JTextField();
+    	
+    	rControl.add(e);
+    	rControl.add(n);
+    	rControl.add(u);
+    	rControl.add(pass);
+    	r.add(rControl, BorderLayout.CENTER);
+    	JOptionPane.showMessageDialog(frame, r, "Register a user",JOptionPane.OK_CANCEL_OPTION);
+    	
+    	new RegisterUser(e.getText(), n.getText(), u.getText(), pass.getText());
     }
 }
