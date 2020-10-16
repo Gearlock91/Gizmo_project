@@ -70,7 +70,7 @@ public class LoginScreen extends JPanel{
     	
     	String correctUserName = "";
     	
-    	System.out.println();
+    	System.out.println(UserList.getInstance().getFirst().getUserName());
     	
     	for(int i = 0; i < UserList.getInstance().size(); i++) {
     		if(UserList.getInstance().get(i).getUserName().equals(userName)) {
