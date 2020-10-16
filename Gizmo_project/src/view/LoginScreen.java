@@ -14,7 +14,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import controller.RegisterUser;
-import model.UserList;
+import model.User;
+import model.UserListDAO;
 
 
 public class LoginScreen extends JPanel{
@@ -68,13 +69,17 @@ public class LoginScreen extends JPanel{
     public boolean isUserNameCorrect(String userName) {
     	
     	String correctUserName = "";
-
-    	for(int i = 0; i < UserList.getInstance().size(); i++) {
-    		if(UserList.getInstance().get(i).getUserName().equals(userName)) {
-    			correctUserName = UserList.getInstance().get(i).getUserName();
-    		}
-    			
+    	
+    	for(User a : UserListDAO.getInstance().getAll()) {
+    		if(a.getName().equals(userName))
+    			correctUserName = a.getName();
     	}
+
+//    	for(int i = 0; i < UserListDAO.getInstance().size(); i++) {
+//    		if(UserListDAO.getInstance().getAll().) {
+//    			correctUserName = UserListDAO.getInstance().get(i).getUserName();
+//    		}		
+//    	}
     	
     	if(userName.length() != correctUserName.length())
     		return false;
@@ -86,13 +91,18 @@ public class LoginScreen extends JPanel{
     	
     	char [] correctPass = null;
     	
-    	for(int i = 0; i < UserList.getInstance().size(); i++) {
-    		if(Arrays.equals(UserList.getInstance().get(i).getPassword(), pass)) {
-    			System.out.println("Hejo hopp");
-    			correctPass = UserList.getInstance().get(i).getPassword();
-    		}
-    			
+    	for(User a : UserListDAO.getInstance().getAll()) {
+    		if(Arrays.equals(a.getPassword(), pass))
+    			correctPass = a.getPassword();
     	}
+//    	
+//    	for(int i = 0; i < UserListDAO.getInstance().size(); i++) {
+//    		if(Arrays.equals(UserListDAO.getInstance().get(i).getPassword(), pass)) {
+//    			System.out.println("Hejo hopp");
+//    			correctPass = UserListDAO.getInstance().get(i).getPassword();
+//    		}
+//    			
+//    	}
     	
     	if(pass.length != correctPass.length)
     		return false;

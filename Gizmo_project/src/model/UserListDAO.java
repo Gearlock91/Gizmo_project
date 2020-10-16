@@ -9,17 +9,17 @@ import java.util.List;
 import dao.IDao;
 import db.DbConnectionManager;
 
-public class UserList extends LinkedList<User> implements IDao<User>{
+public class UserListDAO extends LinkedList<User> implements IDao<User>{
 
 	private static final long serialVersionUID = 1L;
-	private static UserList instance;
+	private static UserListDAO instance;
 	static DbConnectionManager dbConManagerSingleton = null;
 	
-	private UserList() {}
+	private UserListDAO() {}
 	
-	public static UserList getInstance() {
+	public static UserListDAO getInstance() {
 		if(instance == null) {
-			instance = new UserList();
+			instance = new UserListDAO();
 			dbConManagerSingleton = DbConnectionManager.getInstance();
 		}
 		return instance;
@@ -29,16 +29,16 @@ public class UserList extends LinkedList<User> implements IDao<User>{
 	public List<User> getAll() {
 
 		try {
-			ResultSet resultSet = dbConManagerSingleton.excecuteQuery("SELECT email, name, userName,password FROM Users");
+			ResultSet resultSet = dbConManagerSingleton.excecuteQuery("SELECT email, name, user_name,password FROM Users");
 			while (resultSet.next()) {
-				UserList.getInstance().add(new User(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4).toCharArray()));
+				UserListDAO.getInstance().add(new User(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4).toCharArray()));
 			}
 			dbConManagerSingleton.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return UserList.getInstance().getAll();
+		return UserListDAO.getInstance().getAll();
 	}
 
 	@Override
@@ -57,15 +57,16 @@ public class UserList extends LinkedList<User> implements IDao<User>{
 			
 			//*******This is the main 'save' operation ***************************
 			preparedStatement = dbConManagerSingleton.prepareStatement(
-											  "INSERT INTO students (name, birth_year) " +
-											  "VALUES (?, ?) RETURNING id;");
+											  "INSERT INTO Users (email, name, user_name, password) " +
+											  "VALUES (?, ?, ?, ?);");
 			preparedStatement.setString(1, t.getEmail());
 			preparedStatement.setString(2, t.getName());
+			preparedStatement.setString(3, t.getUserName());
+			preparedStatement.setString(4, t.getPassword().toString());
 			preparedStatement.execute();
 			resultSet = preparedStatement.getResultSet();
-			resultSet.next();
-			int generatedId = resultSet.getInt(1);
-			return new User(generatedId, t.getEmail(), t.getName());
+			//resultSet.next();
+			return new User(t.getEmail(), t.getName(), t.getUserName(), t.getPassword());
 			// ********************************************************************
 			
 			// **** Check nbr of rows after 'save'. Compare with previous row count *****
@@ -80,7 +81,7 @@ public class UserList extends LinkedList<User> implements IDao<User>{
 			e.printStackTrace();
 		}
 		
-		return new User("No Name", 0);
+		return new User("No Name", "null", "null",null);
 	}
 		
 	

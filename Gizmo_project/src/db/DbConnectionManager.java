@@ -24,9 +24,9 @@ import java.sql.Statement;
  */
 public class DbConnectionManager {
 	
-	private static final String DB_NAME = "awi"; // Change value to your database
+	private static final String DB_NAME = "Projektet"; // Change value to your database
 	private static final String USER = "postgres"; // Change value to your user
-	private static final String PASSWORD = "m0zartk0g3l"; // Change value to your password
+	private static final String PASSWORD = "admin"; // Change value to your password
 	private static final String CONNECTION_URL = "jdbc:postgresql://localhost/" + DB_NAME;
 	
 	private Connection connection = null;
