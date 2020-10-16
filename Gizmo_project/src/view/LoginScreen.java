@@ -105,6 +105,7 @@ public class LoginScreen extends JPanel{
     	JPanel r = new JPanel(new BorderLayout(5,5));
     	JPanel rLabel = new JPanel(new GridLayout(4,1));
     	rLabel.add(new JLabel("Email to register: "));
+    	
     	rLabel.add(new JLabel("Name: "));
     	rLabel.add(new JLabel("Username: "));
     	rLabel.add(new JLabel("Password: "));

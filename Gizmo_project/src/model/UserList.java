@@ -15,17 +15,4 @@ public class UserList extends LinkedList<User> {
 		}
 		return instance;
 	}
-	
-	//--------------------------------------
-//	
-//	private List<User> userList = new LinkedList<User>();
-//	
-//	public void addUser(User user) {
-//		userList.add(user);
-//	}
-//	
-//	public User getUser(int index) {
-//		return userList.get(index);
-//	}
-	
 }
