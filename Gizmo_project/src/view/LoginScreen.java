@@ -17,7 +17,6 @@ import controller.RegisterUser;
 import model.UserList;
 
 
-
 public class LoginScreen extends JPanel{
 
 	private static final long serialVersionUID = 1L;

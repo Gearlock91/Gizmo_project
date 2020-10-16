@@ -26,14 +26,11 @@ public class UserList extends LinkedList<User> implements IDao<User>{
 
 	@Override
 	public List<User> getAll() {
-		
-		
-		
+
 		try {
-			ResultSet resultSet = dbConManagerSingleton.excecuteQuery("SELECT id, name, birth_year FROM students");
+			ResultSet resultSet = dbConManagerSingleton.excecuteQuery("SELECT email, name, userName,password FROM Users");
 			while (resultSet.next()) {
-				UserList.getInstance().add(new User(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.get(4));
-				
+				UserList.getInstance().add(new User(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4).toCharArray()));
 			}
 			dbConManagerSingleton.close();
 		} catch (SQLException e) {
@@ -46,7 +43,7 @@ public class UserList extends LinkedList<User> implements IDao<User>{
 	@Override
 	public User save(User t) {
 		
-		return ;
+		
 	}
 
 	@Override
