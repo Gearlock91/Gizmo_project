@@ -9,13 +9,25 @@ public class User {
 	private char[] password;
 	private String email;
 	private String userName;
+	private int uId;
 	
+	private boolean active;
+
 	public User(String email,String name, String userName, char[] password) {
 		
 		this.name = name;
 		this.userName = userName;
 		this.password = password;
 		this.email = email;
+	}
+	
+	public User(String email,String name, String userName, char[] password, int uId) {
+		
+		this.name = name;
+		this.userName = userName;
+		this.password = password;
+		this.email = email;
+		this.uId = uId;
 	}
 	public int getAge() {
 		return age;
@@ -62,5 +74,17 @@ public class User {
 	}
     public void setPassword(char[] password){
         this.password = password;
+    }
+    
+    public int getUid() {
+    	return uId;
+    }
+    
+    public void setActive() {
+    	active = true;
+    }
+    
+    public boolean getActive() {
+    	return active;
     }
 }

@@ -49,7 +49,7 @@ class TrackPointTest {
 	void setUp() throws Exception {
 		
 		dataPoint = new LinkedList<String>();
-		activity = new Activity("Test run");
+		activity = new Activity();
 	}
 
 	@AfterEach

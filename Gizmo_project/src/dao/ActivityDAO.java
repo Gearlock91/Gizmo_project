@@ -7,43 +7,56 @@ import java.util.LinkedList;
 import java.util.List;
 
 import db.DbConnectionManager;
+import model.Activity;
 import model.User;
 
-public class UserListDAO extends LinkedList<User> implements IDao<User>{
+public class ActivityDAO extends LinkedList<Activity> implements IDao<Activity>{
 
 	private static final long serialVersionUID = 1L;
-	private static UserListDAO instance;
+	
 	static DbConnectionManager dbConManagerSingleton = null;
+	private static ActivityDAO instance;
 	
-	private UserListDAO() {}
+	private ActivityDAO() {}
 	
-	public static UserListDAO getInstance() {
-		if(instance == null) {
-			instance = new UserListDAO();
-			dbConManagerSingleton = DbConnectionManager.getInstance();
-		}
+	public static ActivityDAO getInstance() {
+			if(instance==null) {
+				instance = new ActivityDAO();
+				dbConManagerSingleton = DbConnectionManager.getInstance();
+			}
+				
 		return instance;
 	}
+	
+//--------- SINGELTON -----------------
+	
+	
+	
 
 	@Override
-	public List<User> getAll() {
-
-		try {
-			ResultSet resultSet = dbConManagerSingleton.excecuteQuery("SELECT email, name, user_name,password, u_id FROM Users");
-			while (resultSet.next()) {
-				UserListDAO.getInstance().add(new User(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4).toCharArray(), resultSet.getInt(5)));
-			
-			}
-			dbConManagerSingleton.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return UserListDAO.getInstance();
+	public Activity get(int id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public User save(User t) {
+	public List<Activity> getAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	@Override
+	public Activity save(Activity t) {
+		
+		int i = 1;
+		
+		User a = null;
+		
+		for(User b : UserListDAO.getInstance()) {
+			if(b.getActive())
+				a = b;
+		}
 		
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -57,17 +70,21 @@ public class UserListDAO extends LinkedList<User> implements IDao<User>{
 			//System.out.println(rowCount); // Debug print
 			
 			//*******This is the main 'save' operation ***************************
+			
+			
 			preparedStatement = dbConManagerSingleton.prepareStatement(
-											  "INSERT INTO Users (email, name, user_name, password) " +
+											  "INSERT INTO Activties (a_id, u_id, activity_name, typ_id) " +
 											  "VALUES (?, ?, ?, ?);");
-			preparedStatement.setString(1, t.getEmail());
-			preparedStatement.setString(2, t.getName());
-			preparedStatement.setString(3, t.getUserName());
-			preparedStatement.setString(4, new String(t.getPassword()));
+			
+			preparedStatement.setInt(1, i);
+			preparedStatement.setInt(2, a.getUid());
+			preparedStatement.setString(3, "Test");
+			preparedStatement.setInt(2, 0);
 			preparedStatement.execute();
 			resultSet = preparedStatement.getResultSet();
+			
 			//resultSet.next();
-			return new User(t.getEmail(), t.getName(), t.getUserName(), t.getPassword());
+			return new Activity();
 			// ********************************************************************
 			
 			// **** Check nbr of rows after 'save'. Compare with previous row count *****
@@ -82,21 +99,19 @@ public class UserListDAO extends LinkedList<User> implements IDao<User>{
 			e.printStackTrace();
 		}
 		
-		return new User("No Name", "null", "null",null);
+		return new Activity();
 	}
-		
-	
 
 	@Override
-	public void update(User t, String[] params) {
+	public void update(Activity t, String[] param) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void delete(User t) {
+	public void delete(Activity t) {
 		// TODO Auto-generated method stub
 		
 	}
-	
+
 }

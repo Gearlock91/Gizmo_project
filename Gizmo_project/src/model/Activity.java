@@ -8,8 +8,11 @@ public class Activity {
 	private List<TrackPoint> trackPoints;
 	private String activityName;
 	
-	public Activity (String name) {
-		activityName = name;
+	public Activity(List<TrackPoint> t) {
+		trackPoints = t;
+	}
+	
+	public Activity () {
 		trackPoints = new LinkedList<TrackPoint>();
 	}
 	
@@ -64,6 +67,14 @@ public class Activity {
 	}
 	public int size() {
 		return trackPoints.size();
+	}
+	
+	public void setName(String name) {
+		activityName = name;
+	}
+	
+	public List<TrackPoint> getActivity(){
+		return trackPoints;
 	}
 	
 	@Override

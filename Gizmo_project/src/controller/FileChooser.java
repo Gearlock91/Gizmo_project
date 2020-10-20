@@ -3,7 +3,9 @@ package controller;
 import java.util.LinkedList;
 import java.util.List;
 
+import dao.ActivityDAO;
 import data_handler.Import;
+import model.Activity;
 import model.TrackPoint;
 
 public class FileChooser {
@@ -27,8 +29,12 @@ public class FileChooser {
 		
 		list = Import.getInstance(fileName).getList();
 		
-		for(TrackPoint a: list)
-			System.out.println(a);
+		Activity a = new Activity(list);
+		
+		ActivityDAO.getInstance().save(a);
+		
+		for(TrackPoint b: list)
+			System.out.println(b);
 	}
 	
 

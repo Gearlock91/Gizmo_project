@@ -54,7 +54,6 @@ public class LoginScreen extends JPanel{
           if(isPasswordCorrect(password.getPassword()) && isUserNameCorrect(userName.getText())){
         	JOptionPane.showMessageDialog(frame, "Success!");
         	succecfullLogin = true;
-        	
           }
           else if(opt == JOptionPane.CANCEL_OPTION)
         	  System.exit(0);
@@ -73,8 +72,11 @@ public class LoginScreen extends JPanel{
     	String correctUserName = "";
     	
     	for(User a : UserListDAO.getInstance()) {
-    		if(a.getUserName().equals(userName))
+    		if(a.getUserName().equals(userName)){
     			correctUserName = a.getUserName();
+    			a.setActive();
+    		}
+    			
     	} 	
     	
     	if(userName.length() != correctUserName.length())

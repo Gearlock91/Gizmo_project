@@ -83,9 +83,8 @@ public class Import {
 					FirstLine = false; 
 					s.next();
 					}	
-				else {
-					trackPointList.add(TrackPointDAO.getInstance().save(new TrackPoint(collectPoints(s.next()))));
-					
+				else {	
+					trackPointList.add(TrackPointDAO.getInstance().save(new TrackPoint(collectPoints(s.next()))));			
 				}			
 			}
 			

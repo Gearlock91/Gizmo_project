@@ -48,7 +48,8 @@ public class TrackPointDAO extends LinkedList<TrackPoint> implements IDao<TrackP
 	@Override
 	public TrackPoint save(TrackPoint t) {
 		
-		
+		int i = 1;
+	
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		//int rowCount = 0;
@@ -62,18 +63,20 @@ public class TrackPointDAO extends LinkedList<TrackPoint> implements IDao<TrackP
 			
 			//*******This is the main 'save' operation ***************************
 			preparedStatement = dbConManagerSingleton.prepareStatement(
-											  "INSERT INTO TrackPoints (date, time, elapsed_time, longitude, latitude, altitude, distance, heart_rate, speed, cadance) " +
-											  "VALUES (?, ?, ?, ? , ?, ? , ?, ? , ? , ? );");
-			preparedStatement.setString(1, t.getDate());
-			preparedStatement.setString(2, t.getTime());
-			preparedStatement.setInt   (3, t.getElapsedTime());
-			preparedStatement.setDouble(4, t.getLong());
-			preparedStatement.setDouble(5, t.getLat());
-			preparedStatement.setDouble(6, t.getAlt());
-			preparedStatement.setDouble(7, t.getDistance());
-			preparedStatement.setDouble(8, t.getHart());
-			preparedStatement.setDouble(9,t.getSpeed());
-			preparedStatement.setDouble(10,t.getCadence());
+											  "INSERT INTO TrackPoints (a_id,date, time, elapsed_time, longitude, latitude, altitude, distance, heart_rate, speed, cadance) " +
+											  "VALUES (?,?, ?, ?, ? , ?, ? , ?, ? , ? , ? );");
+		
+			preparedStatement.setInt   (1, i);
+			preparedStatement.setString(2, t.getDate());
+			preparedStatement.setString(3, t.getTime());
+			preparedStatement.setInt   (4, t.getElapsedTime());
+			preparedStatement.setDouble(5, t.getLong());
+			preparedStatement.setDouble(6, t.getLat());
+			preparedStatement.setDouble(7, t.getAlt());
+			preparedStatement.setDouble(8, t.getDistance());
+			preparedStatement.setDouble(9, t.getHart());
+			preparedStatement.setDouble(10,t.getSpeed());
+			preparedStatement.setDouble(11,t.getCadence());
 			preparedStatement.execute();
 			resultSet = preparedStatement.getResultSet();
 			//resultSet.next();
