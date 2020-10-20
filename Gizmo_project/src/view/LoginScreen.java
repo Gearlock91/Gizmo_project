@@ -48,7 +48,9 @@ public class LoginScreen extends JPanel{
     
     public void logIn(JFrame frame, JPanel p, JTextField userName, JPasswordField password) {
     	int opt = JOptionPane.showConfirmDialog(frame, p, "Log In", JOptionPane.OK_CANCEL_OPTION);
-    	     	  
+    	UserListDAO.getInstance().getAll();
+    
+    	
           if(isPasswordCorrect(password.getPassword()) && isUserNameCorrect(userName.getText())){
         	JOptionPane.showMessageDialog(frame, "Success!");
         	succecfullLogin = true;
@@ -70,16 +72,10 @@ public class LoginScreen extends JPanel{
     	
     	String correctUserName = "";
     	
-    	for(User a : UserListDAO.getInstance().getAll()) {
-    		if(a.getName().equals(userName))
-    			correctUserName = a.getName();
-    	}
-
-//    	for(int i = 0; i < UserListDAO.getInstance().size(); i++) {
-//    		if(UserListDAO.getInstance().getAll().) {
-//    			correctUserName = UserListDAO.getInstance().get(i).getUserName();
-//    		}		
-//    	}
+    	for(User a : UserListDAO.getInstance()) {
+    		if(a.getUserName().equals(userName))
+    			correctUserName = a.getUserName();
+    	} 	
     	
     	if(userName.length() != correctUserName.length())
     		return false;
@@ -91,18 +87,10 @@ public class LoginScreen extends JPanel{
     	
     	char [] correctPass = null;
     	
-    	for(User a : UserListDAO.getInstance().getAll()) {
+    	for(User a : UserListDAO.getInstance()) {
     		if(Arrays.equals(a.getPassword(), pass))
     			correctPass = a.getPassword();
     	}
-//    	
-//    	for(int i = 0; i < UserListDAO.getInstance().size(); i++) {
-//    		if(Arrays.equals(UserListDAO.getInstance().get(i).getPassword(), pass)) {
-//    			System.out.println("Hejo hopp");
-//    			correctPass = UserListDAO.getInstance().get(i).getPassword();
-//    		}
-//    			
-//    	}
     	
     	if(pass.length != correctPass.length)
     		return false;

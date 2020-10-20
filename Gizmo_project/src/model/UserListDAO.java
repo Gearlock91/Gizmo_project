@@ -32,18 +32,20 @@ public class UserListDAO extends LinkedList<User> implements IDao<User>{
 			ResultSet resultSet = dbConManagerSingleton.excecuteQuery("SELECT email, name, user_name,password FROM Users");
 			while (resultSet.next()) {
 				UserListDAO.getInstance().add(new User(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4).toCharArray()));
+				System.out.println(resultSet.getString(4).toCharArray().toString());
+			
 			}
 			dbConManagerSingleton.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return UserListDAO.getInstance().getAll();
+		return UserListDAO.getInstance();
 	}
 
 	@Override
 	public User save(User t) {
-
+		
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		//int rowCount = 0;
@@ -62,7 +64,7 @@ public class UserListDAO extends LinkedList<User> implements IDao<User>{
 			preparedStatement.setString(1, t.getEmail());
 			preparedStatement.setString(2, t.getName());
 			preparedStatement.setString(3, t.getUserName());
-			preparedStatement.setString(4, t.getPassword().toString());
+			preparedStatement.setString(4, new String(t.getPassword()));
 			preparedStatement.execute();
 			resultSet = preparedStatement.getResultSet();
 			//resultSet.next();
