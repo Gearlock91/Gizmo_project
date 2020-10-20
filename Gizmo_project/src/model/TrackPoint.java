@@ -16,20 +16,34 @@ public class TrackPoint {
 	private double cadence;
 
 	
-	public TrackPoint(List<String> d) {
+	public TrackPoint(List<String> t) {
 		
-		date = d.get(0);
-		time = d.get(1);
-		elapsedTime = Integer.parseInt(d.get(2));
-		latitude = Double.parseDouble(d.get(3));
-		longitude = Double.parseDouble(d.get(4));
-		altitude = Double.parseDouble(d.get(5));
-		distance = Double.parseDouble(d.get(6));
-		heartRate = Double.parseDouble(d.get(7));
-		speed = Double.parseDouble(d.get(8));
-		cadence = Double.parseDouble(d.get(9));
+		date = t.get(0);
+		time = t.get(1);
+		elapsedTime = Integer.parseInt(t.get(2));
+		latitude = Double.parseDouble(t.get(3));
+		longitude = Double.parseDouble(t.get(4));
+		altitude = Double.parseDouble(t.get(5));
+		distance = Double.parseDouble(t.get(6));
+		heartRate = Double.parseDouble(t.get(7));
+		speed = Double.parseDouble(t.get(8));
+		cadence = Double.parseDouble(t.get(9));
 		
 	}
+	
+	public TrackPoint(TrackPoint t) {
+		date = t.getDate();
+		time = t.getTime();
+		elapsedTime = t.getElapsedTime();
+		latitude = t.getLat();
+		longitude = t.getLong();
+		altitude = t.getAlt();
+		distance = t.getDistance();
+		heartRate = t.getHart();
+		speed = t.getSpeed();
+		cadence = t.getCadence();
+	}
+	
 	public String getDate() {
 		return date;
 		

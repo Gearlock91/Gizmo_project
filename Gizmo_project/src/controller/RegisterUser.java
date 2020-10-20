@@ -1,7 +1,7 @@
 package controller;
 
+import dao.UserListDAO;
 import model.User;
-import model.UserListDAO;
 
 public class RegisterUser {
 	

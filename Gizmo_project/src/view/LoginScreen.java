@@ -14,8 +14,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import controller.RegisterUser;
+import dao.UserListDAO;
 import model.User;
-import model.UserListDAO;
 
 
 public class LoginScreen extends JPanel{

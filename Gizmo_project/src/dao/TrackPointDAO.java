@@ -1,4 +1,4 @@
-package model;
+package dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6,45 +6,48 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-import dao.IDao;
 import db.DbConnectionManager;
+import model.TrackPoint;
 
-public class UserListDAO extends LinkedList<User> implements IDao<User>{
+public class TrackPointDAO extends LinkedList<TrackPoint> implements IDao<TrackPoint>{
 
 	private static final long serialVersionUID = 1L;
-	private static UserListDAO instance;
+	
 	static DbConnectionManager dbConManagerSingleton = null;
+	private static TrackPointDAO instance;
 	
-	private UserListDAO() {}
+	private TrackPointDAO() {}
 	
-	public static UserListDAO getInstance() {
-		if(instance == null) {
-			instance = new UserListDAO();
-			dbConManagerSingleton = DbConnectionManager.getInstance();
-		}
+	public static TrackPointDAO getInstance() {
+			if(instance==null) {
+				instance = new TrackPointDAO();
+				dbConManagerSingleton = DbConnectionManager.getInstance();
+			}
+				
 		return instance;
 	}
+	
+//--------- SINGELTON -----------------
+	
+	
+	
 
 	@Override
-	public List<User> getAll() {
-
-		try {
-			ResultSet resultSet = dbConManagerSingleton.excecuteQuery("SELECT email, name, user_name,password FROM Users");
-			while (resultSet.next()) {
-				UserListDAO.getInstance().add(new User(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4).toCharArray()));
-				System.out.println(resultSet.getString(4).toCharArray().toString());
-			
-			}
-			dbConManagerSingleton.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return UserListDAO.getInstance();
+	public TrackPoint get(int id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public User save(User t) {
+	public List<TrackPoint> getAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	@Override
+	public TrackPoint save(TrackPoint t) {
+		
 		
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -59,16 +62,22 @@ public class UserListDAO extends LinkedList<User> implements IDao<User>{
 			
 			//*******This is the main 'save' operation ***************************
 			preparedStatement = dbConManagerSingleton.prepareStatement(
-											  "INSERT INTO Users (email, name, user_name, password) " +
-											  "VALUES (?, ?, ?, ?);");
-			preparedStatement.setString(1, t.getEmail());
-			preparedStatement.setString(2, t.getName());
-			preparedStatement.setString(3, t.getUserName());
-			preparedStatement.setString(4, new String(t.getPassword()));
+											  "INSERT INTO TrackPoints (date, time, elapsed_time, longitude, latitude, altitude, distance, heart_rate, speed, cadance) " +
+											  "VALUES (?, ?, ?, ? , ?, ? , ?, ? , ? , ? );");
+			preparedStatement.setString(1, t.getDate());
+			preparedStatement.setString(2, t.getTime());
+			preparedStatement.setInt   (3, t.getElapsedTime());
+			preparedStatement.setDouble(4, t.getLong());
+			preparedStatement.setDouble(5, t.getLat());
+			preparedStatement.setDouble(6, t.getAlt());
+			preparedStatement.setDouble(7, t.getDistance());
+			preparedStatement.setDouble(8, t.getHart());
+			preparedStatement.setDouble(9,t.getSpeed());
+			preparedStatement.setDouble(10,t.getCadence());
 			preparedStatement.execute();
 			resultSet = preparedStatement.getResultSet();
 			//resultSet.next();
-			return new User(t.getEmail(), t.getName(), t.getUserName(), t.getPassword());
+			return new TrackPoint(t);
 			// ********************************************************************
 			
 			// **** Check nbr of rows after 'save'. Compare with previous row count *****
@@ -82,21 +91,20 @@ public class UserListDAO extends LinkedList<User> implements IDao<User>{
 		catch ( SQLException e) {
 			e.printStackTrace();
 		}
-		
-		return new User("No Name", "null", "null",null);
+		TrackPoint tp = null;
+		return new TrackPoint(tp);
 	}
-		
-	
 
 	@Override
-	public void update(User t, String[] params) {
+	public void update(TrackPoint t, String[] param) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void delete(User t) {
+	public void delete(TrackPoint t) {
 		// TODO Auto-generated method stub
 		
 	}
+
 }
