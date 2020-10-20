@@ -24,9 +24,9 @@ public class MenuScreen extends JPanel {
 	
 	public JMenuBar createMenuBar() {
 		JMenuBar bar = new JMenuBar();
-		JMenu file = new JMenu("File");
+		JMenu file = new JMenu("Clock");
 		JMenu activity = new JMenu("Activities");
-		JMenuItem openFile = new JMenuItem("Open file...");
+		JMenuItem openFile = new JMenuItem("Read CSV file...");
 		
 		
 		openFile.addActionListener(e -> {

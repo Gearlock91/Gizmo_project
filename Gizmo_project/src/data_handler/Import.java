@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+import dao.TrackPointDAO;
 import model.TrackPoint;
 
 public class Import {
@@ -77,9 +78,14 @@ public class Import {
 			boolean FirstLine  = true;
 			
 			while(s.hasNext()) {
-				if(FirstLine == true) {FirstLine = false; s.next();}	
+				if(FirstLine == true) {
+					
+					FirstLine = false; 
+					s.next();
+					}	
 				else {
-					trackPointList.add(new TrackPoint(collectPoints(s.next())));
+					trackPointList.add(TrackPointDAO.getInstance().save(new TrackPoint(collectPoints(s.next()))));
+					
 				}			
 			}
 			

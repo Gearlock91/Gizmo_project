@@ -13,6 +13,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import controller.RegisterUser;
+import dao.UserListDAO;
+import model.User;
 
 
 public class LoginScreen extends JPanel{
@@ -33,6 +36,9 @@ public class LoginScreen extends JPanel{
         JPasswordField password = new JPasswordField();
         controls.add(password);
         JButton register = new JButton("Register");
+        
+        register.addActionListener(e -> {createRegisterPanel(frame,p);});
+        
         controls.add(register);
         p.add(controls, BorderLayout.CENTER);
 
@@ -42,7 +48,9 @@ public class LoginScreen extends JPanel{
     
     public void logIn(JFrame frame, JPanel p, JTextField userName, JPasswordField password) {
     	int opt = JOptionPane.showConfirmDialog(frame, p, "Log In", JOptionPane.OK_CANCEL_OPTION);
-    	     	  
+    	UserListDAO.getInstance().getAll();
+    
+    	
           if(isPasswordCorrect(password.getPassword()) && isUserNameCorrect(userName.getText())){
         	JOptionPane.showMessageDialog(frame, "Success!");
         	succecfullLogin = true;
@@ -61,7 +69,13 @@ public class LoginScreen extends JPanel{
   
     
     public boolean isUserNameCorrect(String userName) {
-    	String correctUserName = "Andreas";
+    	
+    	String correctUserName = "";
+    	
+    	for(User a : UserListDAO.getInstance()) {
+    		if(a.getUserName().equals(userName))
+    			correctUserName = a.getUserName();
+    	} 	
     	
     	if(userName.length() != correctUserName.length())
     		return false;
@@ -71,11 +85,41 @@ public class LoginScreen extends JPanel{
     
     public boolean isPasswordCorrect(char[] pass) {
     	
-    	char [] correctPass = {'n','m','o'};
+    	char [] correctPass = null;
+    	
+    	for(User a : UserListDAO.getInstance()) {
+    		if(Arrays.equals(a.getPassword(), pass))
+    			correctPass = a.getPassword();
+    	}
     	
     	if(pass.length != correctPass.length)
     		return false;
     	else
     		return Arrays.equals(correctPass, pass);
+    }
+    
+    private void createRegisterPanel(JFrame frame, JPanel p) {
+    	JPanel r = new JPanel(new BorderLayout(5,5));
+    	JPanel rLabel = new JPanel(new GridLayout(4,1));
+    	rLabel.add(new JLabel("Email to register: "));
+    	
+    	rLabel.add(new JLabel("Name: "));
+    	rLabel.add(new JLabel("Username: "));
+    	rLabel.add(new JLabel("Password: "));
+    	r.add(rLabel, BorderLayout.LINE_START);
+    	JPanel rControl = new JPanel(new GridLayout(4,1));
+    	JTextField e = new JTextField();
+    	JTextField n = new JTextField();
+    	JTextField u = new JTextField();
+    	JPasswordField pass = new JPasswordField();
+    	
+    	rControl.add(e);
+    	rControl.add(n);
+    	rControl.add(u);
+    	rControl.add(pass);
+    	r.add(rControl, BorderLayout.CENTER);
+    	JOptionPane.showMessageDialog(frame, r, "Register a user",JOptionPane.OK_CANCEL_OPTION);
+    	
+    	new RegisterUser(e.getText(), n.getText(), u.getText(), pass.getPassword());
     }
 }
