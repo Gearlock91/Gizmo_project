@@ -5,11 +5,11 @@ import java.util.List;
 
 public class Activity {
 	
-	private List<TrackPoint> trackPoints;
+	private List<TrackPoint> trackPoints = new LinkedList<TrackPoint>();
 	private String activityName;
 	
 	public Activity(List<TrackPoint> t) {
-		trackPoints = t;
+		trackPoints.addAll(t);
 	
 	}
 	

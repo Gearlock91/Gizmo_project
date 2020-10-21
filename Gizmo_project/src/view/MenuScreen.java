@@ -6,11 +6,14 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
-
+import javax.sound.midi.Track;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -24,6 +27,7 @@ import controller.FileChooser;
 import dao.ActivityDAO;
 import dao.TrackPointDAO;
 import model.Activity;
+import model.TrackPoint;
 
 
 public class MenuScreen extends JPanel {
@@ -43,21 +47,52 @@ public class MenuScreen extends JPanel {
 		JMenu activity = new JMenu("Activities");
 		JMenuItem openFile = new JMenuItem("Read CSV file...");
 	
-		ActivityDAO.getInstance().add(new Activity(TrackPointDAO.getInstance().getAll()));
+		TrackPointDAO.getInstance().getAll();
+		
+		
+		for(int i = 0; i < TrackPointDAO.getInstance().size(); i++) {
+//			TrackPoint a = TrackPointDAO.getInstance().get(i);
+//			TrackPoint b = TrackPointDAO.getInstance().get(i + 1);
+//			
+//			System.out.println(a.getAID());
+//			System.out.println(b.getAID());
+			
+//			List <TrackPoint> listTp = new LinkedList<TrackPoint>();
+//			
+//			if(a.getAID() == b.getAID() ) {
+//				listTp.add(a);
+//			}
+//				
+//			else {
+//				ActivityDAO.getInstance().add(new Activity(listTp));
+//				listTp.clear();
+//			}
+//			
+//			if(i == TrackPointDAO.getInstance().size())
+//				ActivityDAO.getInstance().add(new Activity(listTp));
+//			
+//			listTp.clear();
+		}
+		
+		
 		JMenuItem items[] = new JMenuItem[ActivityDAO.getInstance().size()];
 		
 		for(int i = 0; i < ActivityDAO.getInstance().size(); i++) {
 			items[i] = new JMenuItem("Aktivitet " + i);
-			activity.add(items[i]);
+			activity.add(items[i]);		
+			items[i].addActionListener(e -> {
+				int j = 0;
+				aktivitet = ActivityDAO.getInstance().get(j);
+				System.out.println(aktivitet.toString());
+				holder.addTab("Super data", createData(aktivitet));
+				holder.addTab("Graph", createGraphs(aktivitet));
+				this.add(holder);
+				validate();
+				j++;
+			});
 		}
 		
-		items[0].addActionListener(e -> {
-			aktivitet = ActivityDAO.getInstance().getFirst();
-			System.out.println(aktivitet.toString());
-			holder.addTab("Graph", createGraphs(aktivitet));
-			this.add(holder);
-			validate();
-		});
+	
 		
 		
 		
@@ -105,6 +140,20 @@ public class MenuScreen extends JPanel {
 		bar.add(file);
 		bar.add(activity);
 		return bar;
+	}
+	
+	public JPanel createData(Activity aktivitet) {
+		JPanel panel = new JPanel(new GridLayout(4,1));
+		JLabel hrate = new JLabel("Super heart: " + String.valueOf(aktivitet.getAvgHeartRate()));
+		JLabel distance = new JLabel("Distance " +String.valueOf(aktivitet.getDistance()));
+		JLabel cadence = new JLabel("CADENCE!!!!!!!! " +String.valueOf(aktivitet.getAvgCadance()));
+		JLabel time = new JLabel("Total time: " +String.valueOf(aktivitet.getTime()));
+		
+		panel.add(hrate);
+		panel.add(distance);
+		panel.add(cadence);
+		panel.add(time);
+		return panel;
 	}
 	
 	public JPanel createGraphs(Activity aktivitet) {

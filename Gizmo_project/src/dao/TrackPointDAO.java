@@ -33,11 +33,10 @@ public class TrackPointDAO extends LinkedList<TrackPoint> implements IDao<TrackP
 	
 	
 
-	@Override
-	public TrackPoint get(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public TrackPoint get(int id) {
+//		return ;
+//	}
 
 	@Override
 	public List<TrackPoint> getAll() {
@@ -45,7 +44,7 @@ public class TrackPointDAO extends LinkedList<TrackPoint> implements IDao<TrackP
 			
 			List<String> tp = new LinkedList<String>();
 			
-			ResultSet resultSet = dbConManagerSingleton.excecuteQuery("SELECT date, time, elapsed_time, longitude, latitude, altitude, distance, heart_rate, speed, cadance FROM TrackPoints");
+			ResultSet resultSet = dbConManagerSingleton.excecuteQuery("SELECT date, time, elapsed_time, longitude, latitude, altitude, distance, heart_rate, speed, cadance, a_id FROM TrackPoints");
 			while (resultSet.next()) {
 				
 				tp.add(resultSet.getString(1));
@@ -57,15 +56,18 @@ public class TrackPointDAO extends LinkedList<TrackPoint> implements IDao<TrackP
 				tp.add(String.valueOf(resultSet.getDouble(7))); 
 				tp.add(String.valueOf(resultSet.getDouble(8))); 
 				tp.add(String.valueOf(resultSet.getDouble(9)));
-				tp.add(String.valueOf(resultSet.getDouble(10))); 
+				tp.add(String.valueOf(resultSet.getDouble(10)));
+				tp.add(String.valueOf(resultSet.getInt(11))); 
 				
 				TrackPointDAO.getInstance().add(new TrackPoint(tp));
+				
 				tp.clear();
 			}
 			dbConManagerSingleton.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		
 		return TrackPointDAO.getInstance();
 	}
