@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.JButton;
+
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -20,6 +20,8 @@ import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import controller.FileChooser;
+import model.Activity;
+import view.PlotView;
 
 public class MenuScreen extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -70,7 +72,13 @@ public class MenuScreen extends JPanel {
 			
 			int valueR = JOptionPane.showConfirmDialog(frame,mainFileChooser, "Import...", JOptionPane.OK_CANCEL_OPTION , 2);
 			if(valueR == JOptionPane.OK_OPTION) {
-				FileChooser.getInstance().selectFile(selectFile.getText());
+				Activity aktivitet =  FileChooser.getInstance().selectFile(selectFile.getText());
+				JPanel panel = new JPanel(new GridLayout(4, 1));
+				
+				panel.add(new PlotView("HR", aktivitet, tp -> tp.getHart()));
+				panel.add(new PlotView("Altitude", aktivitet, tp -> tp.getAlt()));
+				panel.add(new PlotView("Speed", aktivitet, tp -> tp.getSpeed()));
+				panel.add(new PlotView("Cadence", aktivitet, tp -> tp.getCadence()));
 			}
 			
 		});
