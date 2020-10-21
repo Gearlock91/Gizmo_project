@@ -8,6 +8,7 @@ import java.util.List;
 
 import db.DbConnectionManager;
 import model.TrackPoint;
+import model.User;
 
 public class TrackPointDAO extends LinkedList<TrackPoint> implements IDao<TrackPoint>{
 
@@ -40,8 +41,33 @@ public class TrackPointDAO extends LinkedList<TrackPoint> implements IDao<TrackP
 
 	@Override
 	public List<TrackPoint> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			
+			List<String> tp = new LinkedList<String>();
+			
+			ResultSet resultSet = dbConManagerSingleton.excecuteQuery("SELECT date, time, elapsed_time, longitude, latitude, altitude, distance, heart_rate, speed, cadance FROM TrackPoints");
+			while (resultSet.next()) {
+				
+				tp.add(resultSet.getString(1));
+				tp.add(resultSet.getString(2)); 
+				tp.add(String.valueOf((resultSet.getInt(3))));
+				tp.add(String.valueOf(resultSet.getDouble(4))); 
+				tp.add(String.valueOf(resultSet.getDouble(5))); 
+				tp.add(String.valueOf(resultSet.getDouble(6))); 
+				tp.add(String.valueOf(resultSet.getDouble(7))); 
+				tp.add(String.valueOf(resultSet.getDouble(8))); 
+				tp.add(String.valueOf(resultSet.getDouble(9)));
+				tp.add(String.valueOf(resultSet.getDouble(10))); 
+				
+				TrackPointDAO.getInstance().add(new TrackPoint(tp));
+				tp.clear();
+			}
+			dbConManagerSingleton.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return TrackPointDAO.getInstance();
 	}
 
 	
@@ -66,8 +92,6 @@ public class TrackPointDAO extends LinkedList<TrackPoint> implements IDao<TrackP
 			preparedStatement = dbConManagerSingleton.prepareStatement(
 											  "INSERT INTO TrackPoints (a_id,date, time, elapsed_time, longitude, latitude, altitude, distance, heart_rate, speed, cadance) " +
 											  "VALUES (?,?, ?, ?, ? , ?, ? , ?, ? , ? , ? );");
-			
-		
 			
 			resultSet.next();
 			
