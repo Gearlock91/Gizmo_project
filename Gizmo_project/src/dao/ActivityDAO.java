@@ -8,6 +8,7 @@ import java.util.List;
 
 import db.DbConnectionManager;
 import model.Activity;
+import model.TrackPoint;
 import model.User;
 
 public class ActivityDAO extends LinkedList<Activity> implements IDao<Activity>{
@@ -49,7 +50,6 @@ public class ActivityDAO extends LinkedList<Activity> implements IDao<Activity>{
 	@Override
 	public Activity save(Activity t) {
 		
-		int i = 1;
 		
 		User a = null;
 		
@@ -73,13 +73,11 @@ public class ActivityDAO extends LinkedList<Activity> implements IDao<Activity>{
 			
 			
 			preparedStatement = dbConManagerSingleton.prepareStatement(
-											  "INSERT INTO Activties (a_id, u_id, activity_name, typ_id) " +
-											  "VALUES (?, ?, ?, ?);");
+											  "INSERT INTO Activities (u_id, activity_name) " +
+											  "VALUES (?, ?);");
 			
-			preparedStatement.setInt(1, i);
-			preparedStatement.setInt(2, a.getUid());
-			preparedStatement.setString(3, "Test");
-			preparedStatement.setInt(2, 0);
+			preparedStatement.setInt(1, a.getUid());
+			preparedStatement.setString(2, "Test");
 			preparedStatement.execute();
 			resultSet = preparedStatement.getResultSet();
 			

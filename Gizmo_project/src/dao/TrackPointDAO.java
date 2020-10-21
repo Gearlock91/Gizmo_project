@@ -48,25 +48,31 @@ public class TrackPointDAO extends LinkedList<TrackPoint> implements IDao<TrackP
 	@Override
 	public TrackPoint save(TrackPoint t) {
 		
-		int i = 1;
+	
 	
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		//int rowCount = 0;
+		int rowCount = 0;
 		//boolean saveSucess = false;
 		try {
 			//****This is just for checking the 'save' is a sucess. Count rows before save... ***
-		//	resultSet = dbConManagerSingleton.excecuteQuery("SELECT COUNT(id) FROM students");
-		//	resultSet.next();
-		//	rowCount = resultSet.getInt(1);
-			//System.out.println(rowCount); // Debug print
+			
+			resultSet = dbConManagerSingleton.excecuteQuery("SELECT COUNT(a_id) FROM Activities");
+			resultSet.next();
+			rowCount = resultSet.getInt(1);
+			System.out.println(rowCount); // Debug print
 			
 			//*******This is the main 'save' operation ***************************
 			preparedStatement = dbConManagerSingleton.prepareStatement(
 											  "INSERT INTO TrackPoints (a_id,date, time, elapsed_time, longitude, latitude, altitude, distance, heart_rate, speed, cadance) " +
 											  "VALUES (?,?, ?, ?, ? , ?, ? , ?, ? , ? , ? );");
+			
 		
-			preparedStatement.setInt   (1, i);
+			
+			resultSet.next();
+			
+			preparedStatement.setInt(1, rowCount++);
+
 			preparedStatement.setString(2, t.getDate());
 			preparedStatement.setString(3, t.getTime());
 			preparedStatement.setInt   (4, t.getElapsedTime());

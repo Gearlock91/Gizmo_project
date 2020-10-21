@@ -20,7 +20,7 @@ public class MainFrame extends JFrame{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         
         LoginScreen logInSc = new LoginScreen(this);
-        MenuScreen mScreen = new MenuScreen();
+        MenuScreen mScreen = new MenuScreen(this);
         
         setJMenuBar(mScreen.createMenuBar());
         
