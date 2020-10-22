@@ -48,34 +48,35 @@ public class MenuScreen extends JPanel {
 		JMenuItem openFile = new JMenuItem("Read CSV file...");
 	
 		TrackPointDAO.getInstance().getAll();
-		
-		
+		List <TrackPoint> listTp = new LinkedList<TrackPoint>();
 		for(int i = 0; i < TrackPointDAO.getInstance().size(); i++) {
-//			TrackPoint a = TrackPointDAO.getInstance().get(i);
-//			TrackPoint b = TrackPointDAO.getInstance().get(i + 1);
-//			
-//			System.out.println(a.getAID());
-//			System.out.println(b.getAID());
+			int j  = i + 1;
 			
-//			List <TrackPoint> listTp = new LinkedList<TrackPoint>();
-//			
-//			if(a.getAID() == b.getAID() ) {
-//				listTp.add(a);
-//			}
-//				
-//			else {
-//				ActivityDAO.getInstance().add(new Activity(listTp));
-//				listTp.clear();
-//			}
-//			
-//			if(i == TrackPointDAO.getInstance().size())
-//				ActivityDAO.getInstance().add(new Activity(listTp));
-//			
-//			listTp.clear();
+			if((j) == TrackPointDAO.getInstance().size()) {
+				ActivityDAO.getInstance().add(new Activity(listTp));
+				listTp.clear();
+			}
+				
+			else {
+				TrackPoint a = TrackPointDAO.getInstance().get(i);
+				TrackPoint b = TrackPointDAO.getInstance().get(j);
+				
+				
+				if(a.getAID() == b.getAID() ) {
+					listTp.add(a);
+				}
+				else {
+					ActivityDAO.getInstance().add(new Activity(listTp));
+					listTp.clear();
+				}
+			}
+			//listTp.clear();
 		}
 		
 		
 		JMenuItem items[] = new JMenuItem[ActivityDAO.getInstance().size()];
+		
+		System.out.println(ActivityDAO.getInstance().size());
 		
 		for(int i = 0; i < ActivityDAO.getInstance().size(); i++) {
 			items[i] = new JMenuItem("Aktivitet " + i);

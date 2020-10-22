@@ -34,11 +34,11 @@ public class ActivityDAO extends LinkedList<Activity> implements IDao<Activity>{
 	
 	
 
-	@Override
-	public Activity get(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public Activity get(int id) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 	@Override
 	public List<Activity> getAll() {
