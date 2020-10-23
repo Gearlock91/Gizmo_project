@@ -26,7 +26,7 @@ class ImportDAOTest {
 
 	@Test
 	void test() {
-		list = Import.getInstance("ClockData/activity_2016019890.csv").getList();
+		list = Import.getInstance().readAll("ClockData/activity_2016019890.csv");
 		if(list != null) {
 		//-------------
 		for(TrackPoint a : list)

@@ -55,7 +55,7 @@ public class TrackPoint {
 		longitude = t.getLong();
 		altitude = t.getAlt();
 		distance = t.getDistance();
-		heartRate = t.getHart();
+		heartRate = t.getHeart();
 		speed = t.getSpeed();
 		cadence = t.getCadence();
 	}
@@ -88,7 +88,7 @@ public class TrackPoint {
 		return distance;
 		
 	}
-	public double getHart() {
+	public double getHeart() {
 		return heartRate;
 		
 	}

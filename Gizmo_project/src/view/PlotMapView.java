@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
 
 import java.util.List;
@@ -73,22 +74,31 @@ public class PlotMapView extends JPanel {
 		g2.setColor(Color.green);
 		
 		
+		//g2.translate(0, getHeight());
+		AffineTransform toCenterAt = new AffineTransform();
+		
+		
+		
+		
+//		g2.translate(0, getHeight());
+//		g2.rotate(((Math.PI) / 2) * -1);
+		
+	//	g2.drawRect(0, 0, 100, 100);
+//		g2.translate(0, getHeight());
+//		g2.rotate(Math.PI/2 * -1);
+		
+	
+		
 		for(int i = 0; i < trackpoints.size(); i++) {
 			if((i + 1) == trackpoints.size()) {}
 			
 			else {
 				
 				g2.draw(new Line2D.Double(xPixels[i] , yPixels[i], xPixels[i+1] , yPixels[i+1]));
-				System.out.println(xPixels[i] +"   " + yPixels[i] );
+				//System.out.println(xPixels[i] +"   " + yPixels[i] );
 			}
 		
-		}
-		
-		
-		g2.drawRect(50, 50, 100, 200);
-		
-		
-		
+		}		
 	}
 }
 

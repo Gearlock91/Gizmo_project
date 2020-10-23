@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.sound.midi.Track;
+
 import db.DbConnectionManager;
 import model.Activity;
 import model.TrackPoint;
@@ -42,8 +44,61 @@ public class ActivityDAO extends LinkedList<Activity> implements IDao<Activity>{
 
 	@Override
 	public List<Activity> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			TrackPointDAO.getInstance().getAll();
+
+			
+			List <TrackPoint> listTp = new LinkedList<TrackPoint>();
+			
+			ResultSet resultSet = dbConManagerSingleton.excecuteQuery("SELECT a_id, activity_name FROM Activities");
+			int j= 0;
+			while (resultSet.next()) {
+				
+//				for(int i = 0; i < TrackPointDAO.getInstance().size(); i++) {
+//					int j  = i + 1;
+					
+				System.out.println(resultSet.getInt(1));
+				
+					for(int i = 0; i < TrackPointDAO.getInstance().size();i++) {
+						if(TrackPointDAO.getInstance().get(j).getAID() == resultSet.getInt(1) ) {
+							listTp.add(TrackPointDAO.getInstance().get(j));
+							j++;
+						}
+						else {
+							ActivityDAO.getInstance().add(new Activity(resultSet.getString(2),listTp));
+							System.out.println("SAVED!");
+							listTp.clear();
+							break;
+						}
+					}
+					
+//					if((j) == TrackPointDAO.getInstance().size()) {
+//						ActivityDAO.getInstance().add(new Activity(resultSet.getString(1),listTp));
+//						listTp.clear();
+//					}
+//						
+//					else {
+//						TrackPoint a = TrackPointDAO.getInstance().get(i);
+//						TrackPoint b = TrackPointDAO.getInstance().get(j);
+//
+//						if(a.getAID() == b.getAID() ) {
+//							listTp.add(a);
+//						}
+//						else {
+//							ActivityDAO.getInstance().add(new Activity(resultSet.getString(1),listTp));
+//							listTp.clear();
+//						}
+//					}
+//				}
+		
+			}
+			dbConManagerSingleton.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return ActivityDAO.getInstance();
 	}
 
 	
@@ -77,7 +132,7 @@ public class ActivityDAO extends LinkedList<Activity> implements IDao<Activity>{
 											  "VALUES (?, ?);");
 			
 			preparedStatement.setInt(1, a.getUid());
-			preparedStatement.setString(2, "Test");
+			preparedStatement.setString(2, t.getName());
 			preparedStatement.execute();
 			resultSet = preparedStatement.getResultSet();
 			

@@ -11,36 +11,37 @@ import model.TrackPoint;
 
 public class FileChooser {
 	
-	private static FileChooser instance;
+	 //private static FileChooser instance;
 	
-	private FileChooser() {}
+	//private FileChooser() {}
 	
-	public static FileChooser getInstance() {
-		if(instance == null) {
-			instance = new FileChooser();
-		}
-		return instance;
-	}
+	//public static FileChooser getInstance() {
+//		if(instance == null) {
+//			instance = new FileChooser();
+//		}
+//		return instance;
+//	}
 
 	//----------------------------------------
+	private static List<TrackPoint> list = new LinkedList<TrackPoint>();
 	
-	
-	public Activity selectFile(String fileName) {
+	public static void selectActivity(String activityName,String fileName) {
+
+		list.clear();
+
 		
+		list = Import.getInstance().readAll(fileName);
 		
+		Activity a = new Activity(activityName,list);
 		
-		List<TrackPoint> list = new LinkedList<TrackPoint>();
-		
-		list = Import.getInstance(fileName).getList();
-		
-		Activity a = new Activity(list);
-		ActivityDAO.getInstance().add(new Activity(list));
+		ActivityDAO.getInstance().add(a);
 		ActivityDAO.getInstance().save(a);
 		
 		
 		for(int i = 0; i < list.size(); i++)
 			TrackPointDAO.getInstance().save(list.get(i));
-		return a;
+		
+				
 	}
 	
 

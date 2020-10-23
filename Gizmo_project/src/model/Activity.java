@@ -8,7 +8,8 @@ public class Activity {
 	private List<TrackPoint> trackPoints = new LinkedList<TrackPoint>();
 	private String activityName;
 	
-	public Activity(List<TrackPoint> t) {
+	public Activity(String activityName,List<TrackPoint> t) {
+		this.activityName = activityName;
 		trackPoints.addAll(t);
 	
 	}
@@ -29,10 +30,31 @@ public class Activity {
 		return trackPoints.get(trackPoints.size() - 1).getDistance();
 	}
 	
+	public double getMaxHeart() {
+		
+		double maxHeart = trackPoints.get(0).getHeart();
+		
+		for(int i = 0; i < trackPoints.size(); i++) {
+			if(maxHeart < trackPoints.get(i).getHeart())
+				maxHeart = trackPoints.get(i).getHeart();
+		}
+		return maxHeart;
+	}
+	public double getMinHeart() {
+		
+		double minHeart = trackPoints.get(0).getHeart();
+		
+		for(int i = 0; i < trackPoints.size(); i++) {
+			if(minHeart > trackPoints.get(i).getHeart())
+				minHeart = trackPoints.get(i).getHeart();
+		}
+		return minHeart;
+	}
+	
 	public int getAvgHeartRate() {
 		double sumHeartRate = 0;
 		for(int i = 0; i < trackPoints.size(); i++) {
-			sumHeartRate += trackPoints.get(i).getHart();
+			sumHeartRate += trackPoints.get(i).getHeart();
 		}
 		return (int) (sumHeartRate / trackPoints.size());
 	}
@@ -47,14 +69,18 @@ public class Activity {
 			return End - Start;
 	}
 	
-	public String getTime() {
+	public String getStartTime() {
+		return trackPoints.get(0).getTime();
+	}
+	public String getEndTime() {
+		return trackPoints.get(trackPoints.size() - 1).getTime();
+	}
+	
+	public String getTotalTime() {
 		
-		String startTime = trackPoints.get(0).getTime();
-		String endTime	 = trackPoints.get(trackPoints.size() - 1).getTime();
-		
-		int timeHH = getDiff(startTime, endTime,0, 2);
-		int timeMM = getDiff(startTime, endTime,3, 5);
-		int timeSS = getDiff(startTime, endTime,6, 8); 
+		int timeHH = getDiff(getStartTime(), getEndTime(),0, 2);
+		int timeMM = getDiff(getStartTime(), getEndTime(),3, 5);
+		int timeSS = getDiff(getStartTime(), getEndTime(),6, 8); 
 		
 		return String.format("%02d:%02d:%02d", timeHH, timeMM, timeSS);
 	}
@@ -66,12 +92,38 @@ public class Activity {
 		}
 		return (cadance / trackPoints.size());
 	}
+	
+	public double getMaxSpeed() {
+		
+		double maxSpeed = trackPoints.get(0).getSpeed();
+		
+		for(int i = 0; i < trackPoints.size(); i++) {
+			if(maxSpeed < trackPoints.get(i).getSpeed())
+				maxSpeed = trackPoints.get(i).getSpeed();
+		}
+		return maxSpeed;
+	}
+	
+	public double getAvgSpeed() {
+		double speed = 0;
+		for(int i = 0; i < trackPoints.size(); i++) {
+			speed += trackPoints.get(i).getSpeed();
+		}
+		return (speed / trackPoints.size());
+	}
+	
+	
+	
 	public int size() {
 		return trackPoints.size();
 	}
 	
 	public void setName(String name) {
 		activityName = name;
+	}
+	
+	public String getName() {
+		return activityName;
 	}
 	
 	public List<TrackPoint> getActivity(){
@@ -84,7 +136,7 @@ public class Activity {
 			   + getAvgHeartRate()  +"\n"+ 
 				 getDistance() 		+"\n"+
 				 getAvgCadance() 	+"\n"+ 
-				 getTime();
+				 getTotalTime();
 	}
 
 }

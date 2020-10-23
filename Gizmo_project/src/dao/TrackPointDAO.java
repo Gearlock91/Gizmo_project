@@ -106,7 +106,7 @@ public class TrackPointDAO extends LinkedList<TrackPoint> implements IDao<TrackP
 			preparedStatement.setDouble(6, t.getLat());
 			preparedStatement.setDouble(7, t.getAlt());
 			preparedStatement.setDouble(8, t.getDistance());
-			preparedStatement.setDouble(9, t.getHart());
+			preparedStatement.setDouble(9, t.getHeart());
 			preparedStatement.setDouble(10,t.getSpeed());
 			preparedStatement.setDouble(11,t.getCadence());
 			preparedStatement.execute();
