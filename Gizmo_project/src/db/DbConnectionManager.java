@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 /**
  * DbConnectionManager is a Singleton object that manages the
  * connection to the database.
@@ -22,9 +23,10 @@ import java.sql.Statement;
  * @author awi (�ke Wallin)
  * @version 2018-10-18
  */
+
 public class DbConnectionManager {
 	
-	private static final String DB_NAME = "OODPprojekt"; // Change value to your database
+	private static final String DB_NAME = "Projektet"; // Change value to your database
 	private static final String USER = "postgres"; // Change value to your user
 	private static final String PASSWORD = "admin"; // Change value to your password
 	private static final String CONNECTION_URL = "jdbc:postgresql://localhost/" + DB_NAME;

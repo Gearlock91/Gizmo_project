@@ -63,8 +63,8 @@ public class Import {
 	}
 
     public List<TrackPoint> getList() {    
-       if (trackPointList == null)      
-       trackPointList = readAll();    
+//       if (trackPointList == null)      
+    	   trackPointList = readAll();    
         return trackPointList;    
    }  
        
@@ -84,7 +84,7 @@ public class Import {
 					s.next();
 					}	
 				else {	
-					trackPointList.add(new TrackPoint(collectPoints(s.next())));			
+					trackPointList.add(new TrackPoint(0,collectPoints(s.next())));
 				}			
 			}
 			

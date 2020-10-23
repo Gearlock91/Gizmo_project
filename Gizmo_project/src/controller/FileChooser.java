@@ -26,13 +26,17 @@ public class FileChooser {
 	
 	
 	public Activity selectFile(String fileName) {
+		
+		
+		
 		List<TrackPoint> list = new LinkedList<TrackPoint>();
 		
 		list = Import.getInstance(fileName).getList();
 		
 		Activity a = new Activity(list);
-		
+		ActivityDAO.getInstance().add(new Activity(list));
 		ActivityDAO.getInstance().save(a);
+		
 		
 		for(int i = 0; i < list.size(); i++)
 			TrackPointDAO.getInstance().save(list.get(i));

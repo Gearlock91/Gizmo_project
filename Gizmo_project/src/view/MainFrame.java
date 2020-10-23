@@ -1,15 +1,19 @@
 package view;
 
 import java.awt.Color;
+import java.sql.Time;
+import java.util.Timer;
 
 import javax.swing.JFrame;
+
+import controller.FileChooser;
 
 
 public class MainFrame extends JFrame{
 
 	
 	private static final long serialVersionUID = 1L;
-
+	
 	public MainFrame() {
 		super("Gizmo demo");
 		setSize(800,800);
@@ -23,6 +27,7 @@ public class MainFrame extends JFrame{
         MenuScreen mScreen = new MenuScreen(this);
         
         setJMenuBar(mScreen.createMenuBar());
+       
         
         add(logInSc);
         
@@ -32,7 +37,8 @@ public class MainFrame extends JFrame{
         	add(mScreen);
         	validate();
         }
+        
+        
 	}
-	
 
 }
