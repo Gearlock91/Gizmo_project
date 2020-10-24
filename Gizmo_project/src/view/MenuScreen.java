@@ -101,13 +101,11 @@ public class MenuScreen extends JPanel {
 				 System.out.println("CURRENT SIZE OF ACTIVITES: " + ActivityDAO.getInstance().size());
 				 
 				 activity.removeAll();
-				 createItemsOnImport(activity);
+				 createMenuItems(activity);
 				 revalidate();
 				 repaint();
 				 
 			}
-			
-			
 		});
 		
 		
@@ -181,24 +179,24 @@ public class MenuScreen extends JPanel {
 		
 		for(int i = 0; i < ActivityDAO.getInstance().size(); i++) {
 			
-			System.out.println(i);
+			//System.out.println(i);
 			items[i] = new JMenuItem(ActivityDAO.getInstance().get(i).getName());
 			activity.add(items[i]);	
 			addAction(items[i], i);
 		}
 	}
 	
-	public void createItemsOnImport(JMenu activity) {
-		JMenuItem items[] = new JMenuItem[ActivityDAO.getInstance().size()];
-		
-		for(int i = 0; i < ActivityDAO.getInstance().size(); i++) {
-			
-			System.out.println(i);
-			items[i] = new JMenuItem(ActivityDAO.getInstance().get(i).getName());
-			activity.add(items[i]);	
-			addAction(items[i], i);
-		}
-	}
+//	public void createItemsOnImport(String activityName,JMenu activity) {
+//		JMenuItem items[] = new JMenuItem[ActivityDAO.getInstance().size()];
+//		
+//		for(int i = 0; i < ActivityDAO.getInstance().size(); i++) {
+//			
+//			System.out.println(i);
+//			items[i] = new JMenuItem(activityName);
+//			activity.add(items[i]);	
+//			addAction(items[i], i);
+//		}
+//	}
 	
 	public void fetchTP() {	
 		ActivityDAO.getInstance().getAll();

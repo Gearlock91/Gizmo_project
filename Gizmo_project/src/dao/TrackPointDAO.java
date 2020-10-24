@@ -34,7 +34,7 @@ public class TrackPointDAO extends LinkedList<TrackPoint> implements IDao<TrackP
 	
 
 //	@Override
-//	public TrackPoint get(int id) {
+//	public TrackPoint get(int aid) {
 //		return ;
 //	}
 

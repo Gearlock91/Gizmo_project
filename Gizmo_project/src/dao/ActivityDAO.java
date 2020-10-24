@@ -46,58 +46,62 @@ public class ActivityDAO extends LinkedList<Activity> implements IDao<Activity>{
 	public List<Activity> getAll() {
 		try {
 			TrackPointDAO.getInstance().getAll();
-
+			User active = null;
+			for(User a : UserListDAO.getInstance()) {
+				if(a.getActive())
+					active = a;
+			}
 			
 			List <TrackPoint> listTp = new LinkedList<TrackPoint>();
+
 			
-			ResultSet resultSet = dbConManagerSingleton.excecuteQuery("SELECT a_id, activity_name FROM Activities");
-			int j= 0;
-			while (resultSet.next()) {
-				
-//				for(int i = 0; i < TrackPointDAO.getInstance().size(); i++) {
-//					int j  = i + 1;
-					
-				System.out.println(resultSet.getInt(1));
-				
-					for(int i = 0; j < TrackPointDAO.getInstance().size();i++) {
-						if((j + 1) == TrackPointDAO.getInstance().size()) {
-							ActivityDAO.getInstance().add(new Activity(resultSet.getString(2),listTp));
-							listTp.clear();
-							break;
+			ResultSet resultSet = dbConManagerSingleton.excecuteQuery("SELECT a_id, u_id, activity_name FROM Activities");
+			
+			while(resultSet.next()) {
+				if(active.getUid() == resultSet.getInt(2)) {
+					for(int i = 0; i < TrackPointDAO.getInstance().size();i++) {
+						if(TrackPointDAO.getInstance().get(i).getAID() == resultSet.getInt(1)) {
+							listTp.add(TrackPointDAO.getInstance().get(i));
 						}
-						else {
-							if(TrackPointDAO.getInstance().get(j).getAID() == resultSet.getInt(1) ) {
-								listTp.add(TrackPointDAO.getInstance().get(j));
-								j++;
-							}
-							else {
-								ActivityDAO.getInstance().add(new Activity(resultSet.getString(2),listTp));
-								listTp.clear();
-								//j = j - 1;
-								break;
-							}
-						}
-						
-						
 					}
-					
-					
-//						
-//					else {
-//						TrackPoint a = TrackPointDAO.getInstance().get(i);
-//						TrackPoint b = TrackPointDAO.getInstance().get(j);
-//
-//						if(a.getAID() == b.getAID() ) {
-//							listTp.add(a);
+					ActivityDAO.getInstance().add(new Activity(resultSet.getString(3),listTp));
+					listTp.clear();
+				}
+			}
+			
+			
+			
+//			while (resultSet.next()) {
+//				
+//				System.out.println(active.getUid());
+//				System.out.println(resultSet.getInt(2));
+//					
+//				if(active.getUid() != resultSet.getInt(2)) {}
+//				
+//				else {
+//				
+//					for(int i = 0; j < TrackPointDAO.getInstance().size();i++) {
+//						if((j + 1) == TrackPointDAO.getInstance().size()) {
+//							ActivityDAO.getInstance().add(new Activity(resultSet.getString(3),listTp));
+//							listTp.clear();
+//							break;
 //						}
 //						else {
-//							ActivityDAO.getInstance().add(new Activity(resultSet.getString(1),listTp));
-//							listTp.clear();
+//							if((TrackPointDAO.getInstance().get(j).getAID() == resultSet.getInt(1))) {
+//								listTp.add(TrackPointDAO.getInstance().get(j));
+//								j++;
+//							}
+//							else {
+//								ActivityDAO.getInstance().add(new Activity(resultSet.getString(3),listTp));
+//								listTp.clear();
+//								//j = j - 1;
+//								break;
+//							}
 //						}
-//					}
+//					}		
 //				}
-		
-			}
+//			}
+			
 			dbConManagerSingleton.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
