@@ -6,6 +6,8 @@ import java.util.List;
 public class Activity {
 	
 	private List<TrackPoint> trackPoints = new LinkedList<TrackPoint>();
+	private enum ActivityProfile {WALKING,RUNNING,BYCICLING};
+	private ActivityProfile profile;
 	private String activityName;
 	
 	public Activity(String activityName,List<TrackPoint> t) {
@@ -128,6 +130,14 @@ public class Activity {
 	
 	public List<TrackPoint> getActivity(){
 		return trackPoints;
+	}
+	
+	public void setProfile(ActivityProfile profile) {
+		this.profile = profile;
+	}
+	
+	public ActivityProfile getProfile() {
+		return profile;
 	}
 	
 	@Override

@@ -7,6 +7,9 @@ import java.util.Timer;
 import javax.swing.JFrame;
 
 import controller.FileChooser;
+import dao.ActivityDAO;
+import dao.TrackPointDAO;
+import dao.UserListDAO;
 
 
 public class MainFrame extends JFrame{
@@ -31,8 +34,7 @@ public class MainFrame extends JFrame{
         
         add(logInSc);
         
-        if(logInSc.getLogIn()) {
-        	
+        if(logInSc.loginSuccessfull()) {	
         	remove(logInSc);
         	add(mScreen);
         	validate();

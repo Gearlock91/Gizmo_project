@@ -16,6 +16,7 @@ import javax.crypto.Mac;
 import javax.imageio.ImageIO;
 import javax.sound.midi.Track;
 import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -26,11 +27,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import controller.FileChooser;
 import dao.ActivityDAO;
 import dao.TrackPointDAO;
+import dao.UserListDAO;
+import mainApp.App;
 import model.Activity;
 import model.TrackPoint;
 
@@ -56,22 +60,24 @@ public class MenuScreen extends JPanel {
 		JMenuItem openFile = new JMenuItem("Read CSV file...");
 		JMenuItem logout = new JMenuItem("LogOut");
 		JMenuItem myProfile = new JMenuItem("Profile");
+		
+		activity.removeAll();
 	
 		fetchTP();
 		createMenuItems(activity);
 			
 		myProfile.addActionListener(e -> {showMyProfile();});
-		
 		openFile.addActionListener(e -> {
 			
+			String[] activities = {"Walking", "Running", "Bycycling"};
+			
 			JPanel mainFileChooser = new JPanel(new BorderLayout());
-			
-			JPanel fieldBoxOfDoom = new JPanel(new GridLayout(2,1));
-
+			JPanel fieldBoxOfDoom = new JPanel(new GridLayout(3,1));
 			JTextField activityName = new JTextField("Choose activity name");
-			
+			JComboBox<String> activityProfile = new JComboBox<String>(activities);
 			JTextField selectFile = 	new JTextField("Press enter...");
-	
+			
+		
 			selectFile.addActionListener(e2 -> {
 				JFileChooser chooser = new JFileChooser();
 				
@@ -80,23 +86,21 @@ public class MenuScreen extends JPanel {
 				chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 				int returnVal = chooser.showOpenDialog(this);
 				
-				if(returnVal == JFileChooser.APPROVE_OPTION) {
-					
-					
-					selectFile.setText((chooser.getSelectedFile().toPath().toString()));
-					
-				}
+				if(returnVal == JFileChooser.APPROVE_OPTION) {selectFile.setText((chooser.getSelectedFile().toPath().toString()));}
 			});
+		
+			
 			
 			
 			fieldBoxOfDoom.add(activityName);
+			fieldBoxOfDoom.add(activityProfile);
 			fieldBoxOfDoom.add(selectFile);
 			mainFileChooser.add(fieldBoxOfDoom);
 			
 			
 			int valueR = JOptionPane.showConfirmDialog(frame,mainFileChooser, "Import...", JOptionPane.OK_CANCEL_OPTION , 2);
 			if(valueR == JOptionPane.OK_OPTION) {
-				
+				 String getActivityProfile = String.valueOf(activityProfile.getSelectedItem());
 				 FileChooser.selectActivity(activityName.getText(),selectFile.getText());
 				 System.out.println("CURRENT SIZE OF ACTIVITES: " + ActivityDAO.getInstance().size());
 				 
@@ -108,7 +112,16 @@ public class MenuScreen extends JPanel {
 			}
 		});
 		
-		
+		logout.addActionListener(e -> {
+			UserListDAO.getInstance().clear();
+			ActivityDAO.getInstance().clear();
+	    	TrackPointDAO.getInstance().clear();
+			frame.removeAll();
+			frame.validate();
+			frame.dispose();
+			SwingUtilities.invokeLater(() -> new MainFrame());
+			
+		});
 		
 		file.add(openFile);
 		
@@ -156,8 +169,7 @@ public class MenuScreen extends JPanel {
 		panel.add(new PlotView("Altitude", aktivitet, tp -> tp.getAlt()));
 		panel.add(new PlotView("Speed", aktivitet, tp -> tp.getSpeed()));
 		panel.add(new PlotView("Cadence", aktivitet, tp -> tp.getCadence()));
-		
-		
+
 		return panel;
 	}
 	
@@ -178,25 +190,11 @@ public class MenuScreen extends JPanel {
 		JMenuItem items[] = new JMenuItem[ActivityDAO.getInstance().size()];
 		
 		for(int i = 0; i < ActivityDAO.getInstance().size(); i++) {
-			
-			//System.out.println(i);
 			items[i] = new JMenuItem(ActivityDAO.getInstance().get(i).getName());
 			activity.add(items[i]);	
 			addAction(items[i], i);
 		}
 	}
-	
-//	public void createItemsOnImport(String activityName,JMenu activity) {
-//		JMenuItem items[] = new JMenuItem[ActivityDAO.getInstance().size()];
-//		
-//		for(int i = 0; i < ActivityDAO.getInstance().size(); i++) {
-//			
-//			System.out.println(i);
-//			items[i] = new JMenuItem(activityName);
-//			activity.add(items[i]);	
-//			addAction(items[i], i);
-//		}
-//	}
 	
 	public void fetchTP() {	
 		ActivityDAO.getInstance().getAll();
@@ -207,7 +205,6 @@ public class MenuScreen extends JPanel {
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.setSize(50, 50);
 		panel.add(new PlotMapView(a));
-		//panel.add(new PlotView("map2", a, tp -> tp.getLat()));
 		return panel;
 		
 	}

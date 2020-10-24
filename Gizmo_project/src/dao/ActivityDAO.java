@@ -69,39 +69,6 @@ public class ActivityDAO extends LinkedList<Activity> implements IDao<Activity>{
 				}
 			}
 			
-			
-			
-//			while (resultSet.next()) {
-//				
-//				System.out.println(active.getUid());
-//				System.out.println(resultSet.getInt(2));
-//					
-//				if(active.getUid() != resultSet.getInt(2)) {}
-//				
-//				else {
-//				
-//					for(int i = 0; j < TrackPointDAO.getInstance().size();i++) {
-//						if((j + 1) == TrackPointDAO.getInstance().size()) {
-//							ActivityDAO.getInstance().add(new Activity(resultSet.getString(3),listTp));
-//							listTp.clear();
-//							break;
-//						}
-//						else {
-//							if((TrackPointDAO.getInstance().get(j).getAID() == resultSet.getInt(1))) {
-//								listTp.add(TrackPointDAO.getInstance().get(j));
-//								j++;
-//							}
-//							else {
-//								ActivityDAO.getInstance().add(new Activity(resultSet.getString(3),listTp));
-//								listTp.clear();
-//								//j = j - 1;
-//								break;
-//							}
-//						}
-//					}		
-//				}
-//			}
-			
 			dbConManagerSingleton.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
