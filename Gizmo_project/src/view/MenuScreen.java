@@ -69,7 +69,7 @@ public class MenuScreen extends JPanel {
 		myProfile.addActionListener(e -> {showMyProfile();});
 		openFile.addActionListener(e -> {
 			
-			String[] activities = {"Walking", "Running", "Bycycling"};
+			String[] activities = {"Walking", "Running", "Bicycling"};
 			
 			JPanel mainFileChooser = new JPanel(new BorderLayout());
 			JPanel fieldBoxOfDoom = new JPanel(new GridLayout(3,1));
@@ -101,7 +101,7 @@ public class MenuScreen extends JPanel {
 			int valueR = JOptionPane.showConfirmDialog(frame,mainFileChooser, "Import...", JOptionPane.OK_CANCEL_OPTION , 2);
 			if(valueR == JOptionPane.OK_OPTION) {
 				 String getActivityProfile = String.valueOf(activityProfile.getSelectedItem());
-				 FileChooser.selectActivity(activityName.getText(),selectFile.getText());
+				 FileChooser.selectActivity(activityName.getText(),getActivityProfile,selectFile.getText());
 				 System.out.println("CURRENT SIZE OF ACTIVITES: " + ActivityDAO.getInstance().size());
 				 
 				 activity.removeAll();

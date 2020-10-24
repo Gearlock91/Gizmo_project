@@ -25,14 +25,14 @@ public class FileChooser {
 	//----------------------------------------
 	private static List<TrackPoint> list = new LinkedList<TrackPoint>();
 	
-	public static void selectActivity(String activityName,String fileName) {
+	public static void selectActivity(String activityName,String profile,String fileName) {
 
 		list.clear();
 
 		
 		list = Import.getInstance().readAll(fileName);
 		
-		Activity a = new Activity(activityName,list);
+		Activity a = new Activity(activityName,profile,list);
 		
 		ActivityDAO.getInstance().add(a);
 		ActivityDAO.getInstance().save(a);

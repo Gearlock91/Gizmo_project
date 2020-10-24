@@ -6,12 +6,32 @@ import java.util.List;
 public class Activity {
 	
 	private List<TrackPoint> trackPoints = new LinkedList<TrackPoint>();
-	private enum ActivityProfile {WALKING,RUNNING,BYCICLING};
+	private enum ActivityProfile {WALKING,RUNNING,BICYCLING};
 	private ActivityProfile profile;
 	private String activityName;
 	
-	public Activity(String activityName,List<TrackPoint> t) {
+	/**/
+	
+	public Activity(String activityName , String profile,List<TrackPoint> t) {
 		this.activityName = activityName;
+		
+		System.out.println(profile);
+		
+		switch(profile) {
+			case "Walking":
+				this.profile = ActivityProfile.WALKING;
+				break;
+			case "Running":
+				this.profile = ActivityProfile.RUNNING;
+				break;
+			case "Bicycling":
+				this.profile = ActivityProfile.BICYCLING;
+				break;
+			default:
+				System.err.println("ERROR NO ACTIVITY TYPE");
+				break;
+		}
+		
 		trackPoints.addAll(t);
 	
 	}

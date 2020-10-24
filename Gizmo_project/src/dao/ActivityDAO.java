@@ -55,7 +55,7 @@ public class ActivityDAO extends LinkedList<Activity> implements IDao<Activity>{
 			List <TrackPoint> listTp = new LinkedList<TrackPoint>();
 
 			
-			ResultSet resultSet = dbConManagerSingleton.excecuteQuery("SELECT a_id, u_id, activity_name FROM Activities");
+			ResultSet resultSet = dbConManagerSingleton.excecuteQuery("SELECT a_id, u_id, activity_name, activity FROM Activities");
 			
 			while(resultSet.next()) {
 				if(active.getUid() == resultSet.getInt(2)) {
@@ -64,7 +64,8 @@ public class ActivityDAO extends LinkedList<Activity> implements IDao<Activity>{
 							listTp.add(TrackPointDAO.getInstance().get(i));
 						}
 					}
-					ActivityDAO.getInstance().add(new Activity(resultSet.getString(3),listTp));
+					
+					ActivityDAO.getInstance().add(new Activity(resultSet.getString(3),resultSet.getString(4),listTp));
 					listTp.clear();
 				}
 			}
@@ -105,11 +106,12 @@ public class ActivityDAO extends LinkedList<Activity> implements IDao<Activity>{
 			
 			
 			preparedStatement = dbConManagerSingleton.prepareStatement(
-											  "INSERT INTO Activities (u_id, activity_name) " +
-											  "VALUES (?, ?);");
+											  "INSERT INTO Activities (u_id, activity_name, activity) " +
+											  "VALUES (?, ?, ?);");
 			
 			preparedStatement.setInt(1, a.getUid());
 			preparedStatement.setString(2, t.getName());
+			preparedStatement.setString(3, String.valueOf(t.getProfile()));
 			preparedStatement.execute();
 			resultSet = preparedStatement.getResultSet();
 			
