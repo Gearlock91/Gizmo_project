@@ -101,7 +101,7 @@ public class MenuScreen extends JPanel {
 				 System.out.println("CURRENT SIZE OF ACTIVITES: " + ActivityDAO.getInstance().size());
 				 
 				 activity.removeAll();
-				 createItemsOnImport(activityName.getText(),activity);
+				 createItemsOnImport(activity);
 				 revalidate();
 				 repaint();
 				 
@@ -188,45 +188,20 @@ public class MenuScreen extends JPanel {
 		}
 	}
 	
-	public void createItemsOnImport(String activityName,JMenu activity) {
+	public void createItemsOnImport(JMenu activity) {
 		JMenuItem items[] = new JMenuItem[ActivityDAO.getInstance().size()];
 		
 		for(int i = 0; i < ActivityDAO.getInstance().size(); i++) {
 			
 			System.out.println(i);
-			items[i] = new JMenuItem(activityName);
+			items[i] = new JMenuItem(ActivityDAO.getInstance().get(i).getName());
 			activity.add(items[i]);	
 			addAction(items[i], i);
 		}
 	}
 	
-	public void fetchTP() {
-		//TrackPointDAO.getInstance().getAll();
+	public void fetchTP() {	
 		ActivityDAO.getInstance().getAll();
-	
-//		List <TrackPoint> listTp = new LinkedList<TrackPoint>();
-//		for(int i = 0; i < TrackPointDAO.getInstance().size(); i++) {
-//			int j  = i + 1;
-//			
-//			if((j) == TrackPointDAO.getInstance().size()) {
-//				ActivityDAO.getInstance().add(new Activity(ActivityDAO.getInstance().get(i).getName(),listTp));
-//				listTp.clear();
-//			}
-//				
-//			else {
-//				TrackPoint a = TrackPointDAO.getInstance().get(i);
-//				TrackPoint b = TrackPointDAO.getInstance().get(j);
-//				
-//				
-//				if(a.getAID() == b.getAID() ) {
-//					listTp.add(a);
-//				}
-//				else {
-//					ActivityDAO.getInstance().add(new Activity(ActivityDAO.getInstance().get(i).getName(),listTp));
-//					listTp.clear();
-//				}
-//			}
-//		}
 	}
 	
 	
