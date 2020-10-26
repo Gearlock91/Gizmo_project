@@ -1,10 +1,14 @@
 package controller;
 
+import java.awt.BorderLayout;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.Timer;
+import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 import dao.ActivityDAO;
 import dao.BicyclingDAO;
@@ -14,25 +18,29 @@ import dao.WalkDAO;
 import data_handler.Import;
 import model.Activity;
 import model.TrackPoint;
-import view.MenuScreen;
 
 public class FileChooser implements Runnable{
 	
-	 //private static FileChooser instance;
+	private static FileChooser instance;
 	
-	//private FileChooser() {}
+	private FileChooser() {}
 	
-	//public static FileChooser getInstance() {
-//		if(instance == null) {
-//			instance = new FileChooser();
-//		}
-//		return instance;
-//	}
+	public static FileChooser getInstance() {
+		if(instance == null) {
+			instance = new FileChooser();
+		}
+		return instance;
+	}
 
 	//----------------------------------------
-	private static List<TrackPoint> list = new LinkedList<TrackPoint>();
+	 
+	private List<TrackPoint> list = new LinkedList<TrackPoint>();
+	private JFrame frame;
 	
-	public static void selectActivity(String activityName,String profile,String fileName) {
+	public void selectActivity(JFrame frame,String activityName,String profile,String fileName) {
+		this.frame = frame;
+		
+		Thread th = new Thread(this);
 		
 		
 		list.clear();
@@ -54,27 +62,24 @@ public class FileChooser implements Runnable{
 				new RunDAO().save(a);
 				break;
 			case "BICYCLING":
+				
 				new BicyclingDAO().save(a);
 				break;
 			default:
-				System.out.println("Not a walking activity.");
+				System.out.println("Not a activity.");
 		}
-	
-			
-			for(int i = 0; i < list.size(); i++)
-				TrackPointDAO.getInstance().save(list.get(i));	
-
-
-				
+		
+		th.start();
+		JOptionPane.showMessageDialog(frame, "synchronizing");
 	}
 
 	@Override
 	public void run() {
-
-		while(true) {
-			System.out.println("HEJ!");
-		}
+	
 		
+		for(int i = 0; i < list.size(); i++)
+			TrackPointDAO.getInstance().save(list.get(i));	
+		JOptionPane.showMessageDialog(frame, "Done");
 	}
 
 	

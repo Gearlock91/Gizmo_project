@@ -15,8 +15,6 @@ public class Activity {
 	public Activity(String activityName , String profile,List<TrackPoint> t) {
 		this.activityName = activityName;
 		
-		System.out.println(profile);
-		
 		switch(profile) {
 			case "WALKING":
 				this.profile = ActivityProfile.WALKING;

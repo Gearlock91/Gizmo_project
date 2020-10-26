@@ -41,12 +41,19 @@ public class User {
 		
 	}
 	public int getMaxHeart() {
-		maxHeart = (int)ActivityDAO.getInstance().get(0).getMaxHeartActivity();	
-		for(int i = 0; i < ActivityDAO.getInstance().size(); i++) {
-			int heart = (int)ActivityDAO.getInstance().get(i).getMaxHeartActivity();
-			if(heart > maxHeart)
-				maxHeart = heart;
+		if(ActivityDAO.getInstance().size() == 0) {
+			return maxHeart = 0;
 		}
+			
+		else {
+			maxHeart = (int)ActivityDAO.getInstance().get(0).getMaxHeartActivity();	
+			for(int i = 0; i < ActivityDAO.getInstance().size(); i++) {
+				int heart = (int)ActivityDAO.getInstance().get(i).getMaxHeartActivity();
+				if(heart > maxHeart)
+					maxHeart = heart;
+			}
+		}
+		
 
 		return maxHeart;
 		
@@ -103,12 +110,19 @@ public class User {
     }
     
     public double getMaxDistance() {
-    	maxDist = (int)ActivityDAO.getInstance().get(0).getDistance();	
-		for(int i = 0; i < ActivityDAO.getInstance().size(); i++) {
-			int dist = (int)ActivityDAO.getInstance().get(i).getDistance();
-			if(dist > maxDist)
-				maxDist = dist;
+    	
+    	if(ActivityDAO.getInstance().size() == 0) {
+			return maxDist = 0;
 		}
+    	else {
+    		maxDist = (int)ActivityDAO.getInstance().get(0).getDistance();	
+    		for(int i = 0; i < ActivityDAO.getInstance().size(); i++) {
+    			int dist = (int)ActivityDAO.getInstance().get(i).getDistance();
+    			if(dist > maxDist)
+    				maxDist = dist;
+    		}
+    	}
+    	
 
 		return maxDist;
     }

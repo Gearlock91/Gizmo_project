@@ -102,7 +102,7 @@ public class MenuScreen extends JPanel {
 			int valueR = JOptionPane.showConfirmDialog(frame,mainFileChooser, "Import...", JOptionPane.OK_CANCEL_OPTION , 2);
 			if(valueR == JOptionPane.OK_OPTION) {
 				 String getActivityProfile = String.valueOf(activityProfile.getSelectedItem());
-				 FileChooser.selectActivity(activityName.getText(),getActivityProfile,selectFile.getText());
+				 FileChooser.getInstance().selectActivity(frame,activityName.getText(),getActivityProfile,selectFile.getText());
 				 activity.removeAll();
 				 createMenuItems(activity);
 				 revalidate();
