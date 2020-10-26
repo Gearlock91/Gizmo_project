@@ -29,9 +29,16 @@ public class UserListDAO extends LinkedList<User> implements IDao<User>{
 	public List<User> getAll() {
 
 		try {
-			ResultSet resultSet = dbConManagerSingleton.excecuteQuery("SELECT email, name, user_name,password, u_id FROM Users");
+			ResultSet resultSet = dbConManagerSingleton.excecuteQuery("SELECT email, name, user_name,password, u_id, Weight, age, height FROM Users");
 			while (resultSet.next()) {
-				UserListDAO.getInstance().add(new User(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4).toCharArray(), resultSet.getInt(5)));
+				UserListDAO.getInstance().add(new User(resultSet.getString(1), 
+													   resultSet.getString(2), 
+													   resultSet.getString(3), 
+													   resultSet.getString(4).toCharArray(), 
+													   resultSet.getInt(5),
+													   resultSet.getDouble(6),
+													   resultSet.getInt(7),
+													   resultSet.getDouble(8)));
 			
 			}
 			dbConManagerSingleton.close();
@@ -88,9 +95,29 @@ public class UserListDAO extends LinkedList<User> implements IDao<User>{
 	
 
 	@Override
-	public void update(User t, String[] params) {
-		// TODO Auto-generated method stub
+	public void update(User t) {
+
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+	
+		try {
 		
+			preparedStatement = dbConManagerSingleton.prepareStatement(
+											  "UPDATE Users " +
+											  "  SET weight   = ?,"
+											  + "age 	  = ?," +
+											  "height = ? " +
+											  "  WHERE u_id   = ?");
+			preparedStatement.setDouble(1, t.getWeight());
+			preparedStatement.setInt(2, t.getAge());
+			preparedStatement.setDouble(3, t.getHeight());
+			preparedStatement.setInt(4, t.getUid());
+			preparedStatement.execute();
+			resultSet = preparedStatement.getResultSet();
+		}
+		catch ( SQLException e) {
+			e.printStackTrace();
+		}	
 	}
 
 	@Override

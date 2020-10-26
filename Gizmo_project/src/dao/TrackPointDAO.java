@@ -131,7 +131,7 @@ public class TrackPointDAO extends LinkedList<TrackPoint> implements IDao<TrackP
 	}
 
 	@Override
-	public void update(TrackPoint t, String[] param) {
+	public void update(TrackPoint t/**, String[] param*/) {
 		// TODO Auto-generated method stub
 		
 	}

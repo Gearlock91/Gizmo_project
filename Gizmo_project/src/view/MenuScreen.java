@@ -37,13 +37,14 @@ import dao.UserListDAO;
 import mainApp.App;
 import model.Activity;
 import model.TrackPoint;
+import model.User;
 
 
 public class MenuScreen extends JPanel {
 	private static final long serialVersionUID = 1L;
 	int j = 0;
 	JFrame frame;
-	
+	User active = null;
 	
 	JTabbedPane holder = new JTabbedPane();
 	public MenuScreen(JFrame frame) {
@@ -69,7 +70,7 @@ public class MenuScreen extends JPanel {
 		myProfile.addActionListener(e -> {showMyProfile();});
 		openFile.addActionListener(e -> {
 			
-			String[] activities = {"Walking", "Running", "Bicycling"};
+			String[] activities = {"WALKING", "RUNNING", "BICYCLING"};
 			
 			JPanel mainFileChooser = new JPanel(new BorderLayout());
 			JPanel fieldBoxOfDoom = new JPanel(new GridLayout(3,1));
@@ -102,8 +103,6 @@ public class MenuScreen extends JPanel {
 			if(valueR == JOptionPane.OK_OPTION) {
 				 String getActivityProfile = String.valueOf(activityProfile.getSelectedItem());
 				 FileChooser.selectActivity(activityName.getText(),getActivityProfile,selectFile.getText());
-				 System.out.println("CURRENT SIZE OF ACTIVITES: " + ActivityDAO.getInstance().size());
-				 
 				 activity.removeAll();
 				 createMenuItems(activity);
 				 revalidate();
@@ -113,6 +112,10 @@ public class MenuScreen extends JPanel {
 		});
 		
 		logout.addActionListener(e -> {
+			for(User a : UserListDAO.getInstance())
+				if(a.getActive())
+					active = a;
+			UserListDAO.getInstance().update(active);
 			UserListDAO.getInstance().clear();
 			ActivityDAO.getInstance().clear();
 	    	TrackPointDAO.getInstance().clear();
@@ -143,7 +146,7 @@ public class MenuScreen extends JPanel {
 		JLabel time = new JLabel("Total time: " +aktivitet.getTotalTime());
 		JLabel start = new JLabel("Start time: " + String.valueOf(aktivitet.getStartTime()));
 		JLabel end	= new JLabel("End Time:" + aktivitet.getEndTime());
-		JLabel maxHeart = new JLabel("Max Heart rate: " + String.valueOf(aktivitet.getMaxHeart() + "Bpm"));
+		JLabel maxHeart = new JLabel("Max Heart rate: " + String.valueOf(aktivitet.getMaxHeartActivity() + "Bpm"));
 		JLabel minHeart = new JLabel("Min Heart rate: " + String.valueOf(aktivitet.getMinHeart() + "Bpm"));
 		JLabel avgSpeed = new JLabel("Average speed: " + String.valueOf(aktivitet.getAvgSpeed()  + "km/h"));
 		JLabel maxSpeed = new JLabel("Max speed: " + String.valueOf(aktivitet.getMaxSpeed()  + "km/h"));

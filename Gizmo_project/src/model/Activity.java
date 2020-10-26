@@ -18,13 +18,13 @@ public class Activity {
 		System.out.println(profile);
 		
 		switch(profile) {
-			case "Walking":
+			case "WALKING":
 				this.profile = ActivityProfile.WALKING;
 				break;
-			case "Running":
+			case "RUNNING":
 				this.profile = ActivityProfile.RUNNING;
 				break;
-			case "Bicycling":
+			case "BICYCLING":
 				this.profile = ActivityProfile.BICYCLING;
 				break;
 			default:
@@ -52,7 +52,7 @@ public class Activity {
 		return trackPoints.get(trackPoints.size() - 1).getDistance();
 	}
 	
-	public double getMaxHeart() {
+	public double getMaxHeartActivity() {
 		
 		double maxHeart = trackPoints.get(0).getHeart();
 		

@@ -3,13 +3,20 @@ package controller;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+import javax.swing.Timer;
+
 import dao.ActivityDAO;
+import dao.BicyclingDAO;
+import dao.RunDAO;
 import dao.TrackPointDAO;
+import dao.WalkDAO;
 import data_handler.Import;
 import model.Activity;
 import model.TrackPoint;
+import view.MenuScreen;
 
-public class FileChooser {
+public class FileChooser implements Runnable{
 	
 	 //private static FileChooser instance;
 	
@@ -26,7 +33,8 @@ public class FileChooser {
 	private static List<TrackPoint> list = new LinkedList<TrackPoint>();
 	
 	public static void selectActivity(String activityName,String profile,String fileName) {
-
+		
+		
 		list.clear();
 
 		
@@ -37,14 +45,37 @@ public class FileChooser {
 		ActivityDAO.getInstance().add(a);
 		ActivityDAO.getInstance().save(a);
 		
-		
-		for(int i = 0; i < list.size(); i++)
-			TrackPointDAO.getInstance().save(list.get(i));
-		
+		switch(String.valueOf(a.getProfile())) {
+			case "WALKING":
+				new WalkDAO().save(a);
+				break;
+				
+			case "RUNNING":
+				new RunDAO().save(a);
+				break;
+			case "BICYCLING":
+				new BicyclingDAO().save(a);
+				break;
+			default:
+				System.out.println("Not a walking activity.");
+		}
+	
+			
+			for(int i = 0; i < list.size(); i++)
+				TrackPointDAO.getInstance().save(list.get(i));	
+
+
 				
 	}
-	
 
-	
+	@Override
+	public void run() {
+
+		while(true) {
+			System.out.println("HEJ!");
+		}
+		
+	}
+
 	
 }

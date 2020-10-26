@@ -135,7 +135,7 @@ public class ActivityDAO extends LinkedList<Activity> implements IDao<Activity>{
 	}
 
 	@Override
-	public void update(Activity t, String[] param) {
+	public void update(Activity t /**,String[] param*/) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -14,6 +14,6 @@ public interface IDao<T> {
 	//T get(int id);
 	List<T> getAll();
 	T save(T t);
-	void update(T t, String[] params);
+	void update(T t);
 	void delete(T t);
 }
