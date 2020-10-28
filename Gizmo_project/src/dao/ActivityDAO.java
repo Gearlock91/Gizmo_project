@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.sound.midi.Track;
 
 import db.DbConnectionManager;
 import model.Activity;

@@ -28,6 +28,8 @@ public class ProfileView extends JPanel {
 	User activeUser = null;
 	
 	public ProfileView() {
+		UserListDAO.getInstance().getAll();
+		
 		setLayout(new BorderLayout());
 		
 		
@@ -137,16 +139,5 @@ public class ProfileView extends JPanel {
 			}
 	    }
 	
-//	JPanel activityOftheMonth = new JPanel();
-//	activityOftheMonth.add(month);
-//	JLabel month = new JLabel("Month");
-//	activityOftheMonth.setBorder(BorderFactory.createTitledBorder("Activity of the Month"));
-
-//	JPanel two = new JPanel();
-//	JPanel stats = new JPanel(new BorderLayout());
-//
-//	myProfilePanel.add(stats);
-//	myProfilePanel.add(one);
-//	myProfilePanel.add(two);
 		
 }
