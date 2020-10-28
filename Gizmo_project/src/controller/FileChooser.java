@@ -31,21 +31,14 @@ public class FileChooser implements Runnable{
 		}
 		return instance;
 	}
-
-	//----------------------------------------
-	 
+	//---------------------------------------- 
 	private List<TrackPoint> list = new LinkedList<TrackPoint>();
 	private JFrame frame;
 	
 	public void selectActivity(JFrame frame,String activityName,String profile,String fileName) {
 		this.frame = frame;
-		
-		Thread th = new Thread(this);
-		
-		
+		Thread th = new Thread(this);	
 		list.clear();
-
-		
 		list = Import.getInstance().readAll(fileName);
 		
 		Activity a = new Activity(activityName,profile,list);
@@ -70,7 +63,7 @@ public class FileChooser implements Runnable{
 		}
 		
 		th.start();
-		JOptionPane.showMessageDialog(frame, "synchronizing");
+		JOptionPane.showMessageDialog(frame, "Synchronizing, this may take a while...");
 	}
 
 	@Override

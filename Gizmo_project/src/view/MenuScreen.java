@@ -39,7 +39,6 @@ import model.Activity;
 import model.TrackPoint;
 import model.User;
 
-
 public class MenuScreen extends JPanel {
 	private static final long serialVersionUID = 1L;
 	int j = 0;
@@ -78,7 +77,6 @@ public class MenuScreen extends JPanel {
 			JComboBox<String> activityProfile = new JComboBox<String>(activities);
 			JTextField selectFile = 	new JTextField("Press enter...");
 			
-		
 			selectFile.addActionListener(e2 -> {
 				JFileChooser chooser = new JFileChooser();
 				
@@ -89,15 +87,11 @@ public class MenuScreen extends JPanel {
 				
 				if(returnVal == JFileChooser.APPROVE_OPTION) {selectFile.setText((chooser.getSelectedFile().toPath().toString()));}
 			});
-		
-			
-			
-			
+
 			fieldBoxOfDoom.add(activityName);
 			fieldBoxOfDoom.add(activityProfile);
 			fieldBoxOfDoom.add(selectFile);
 			mainFileChooser.add(fieldBoxOfDoom);
-			
 			
 			int valueR = JOptionPane.showConfirmDialog(frame,mainFileChooser, "Import...", JOptionPane.OK_CANCEL_OPTION , 2);
 			if(valueR == JOptionPane.OK_OPTION) {
@@ -107,7 +101,6 @@ public class MenuScreen extends JPanel {
 				 createMenuItems(activity);
 				 revalidate();
 				 repaint();
-				 
 			}
 		});
 		
@@ -127,11 +120,9 @@ public class MenuScreen extends JPanel {
 		});
 		
 		file.add(openFile);
-		
 		profile.add(myProfile);
 		profile.add(logout);
-		
-		
+
 		bar.add(file);
 		bar.add(activity);
 		bar.add(profile);
@@ -150,7 +141,6 @@ public class MenuScreen extends JPanel {
 		JLabel minHeart = new JLabel("Min Heart rate: " + String.valueOf(aktivitet.getMinHeart() + "Bpm"));
 		JLabel avgSpeed = new JLabel("Average speed: " + String.valueOf(aktivitet.getAvgSpeed()  + "km/h"));
 		JLabel maxSpeed = new JLabel("Max speed: " + String.valueOf(aktivitet.getMaxSpeed()  + "km/h"));
-		
 		
 		panel.add(distance);
 		panel.add(cadence);

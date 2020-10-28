@@ -25,35 +25,28 @@ public class ActivityDAO extends LinkedList<Activity> implements IDao<Activity>{
 			if(instance==null) {
 				instance = new ActivityDAO();
 				dbConManagerSingleton = DbConnectionManager.getInstance();
-			}
-				
+			}			
 		return instance;
 	}
-	
 //--------- SINGELTON -----------------
-	
-	
-	
 
 //	@Override
 //	public Activity get(int id) {
 //		// TODO Auto-generated method stub
 //		return null;
 //	}
-
 	@Override
 	public List<Activity> getAll() {
 		try {
 			TrackPointDAO.getInstance().getAll();
 			User active = null;
+			
 			for(User a : UserListDAO.getInstance()) {
 				if(a.getActive())
 					active = a;
 			}
 			
 			List <TrackPoint> listTp = new LinkedList<TrackPoint>();
-
-			
 			ResultSet resultSet = dbConManagerSingleton.excecuteQuery("SELECT a_id, u_id, activity_name, activity FROM Activities");
 			
 			while(resultSet.next()) {
@@ -74,15 +67,12 @@ public class ActivityDAO extends LinkedList<Activity> implements IDao<Activity>{
 			e.printStackTrace();
 		}
 		
-		
 		return ActivityDAO.getInstance();
 	}
 
 	
 	@Override
-	public Activity save(Activity t) {
-		
-		
+	public Activity save(Activity t) {	
 		User a = null;
 		
 		for(User b : UserListDAO.getInstance()) {
@@ -101,9 +91,7 @@ public class ActivityDAO extends LinkedList<Activity> implements IDao<Activity>{
 		//	rowCount = resultSet.getInt(1);
 			//System.out.println(rowCount); // Debug print
 			
-			//*******This is the main 'save' operation ***************************
-			
-			
+			//*******This is the main 'save' operation ***************************		
 			preparedStatement = dbConManagerSingleton.prepareStatement(
 											  "INSERT INTO Activities (u_id, activity_name, activity) " +
 											  "VALUES (?, ?, ?);");
@@ -113,11 +101,9 @@ public class ActivityDAO extends LinkedList<Activity> implements IDao<Activity>{
 			preparedStatement.setString(3, String.valueOf(t.getProfile()));
 			preparedStatement.execute();
 			resultSet = preparedStatement.getResultSet();
-			
 			//resultSet.next();
 			return new Activity();
 			// ********************************************************************
-			
 			// **** Check nbr of rows after 'save'. Compare with previous row count *****
 //			resultSet = dbConManagerSingleton.excecuteQuery("SELECT COUNT(id) FROM students");
 //			resultSet.next();

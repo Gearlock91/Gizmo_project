@@ -40,6 +40,7 @@ public class User {
 		return age;
 		
 	}
+	
 	public int getMaxHeart() {
 		if(ActivityDAO.getInstance().size() == 0) {
 			return maxHeart = 0;

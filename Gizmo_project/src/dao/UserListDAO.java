@@ -27,7 +27,6 @@ public class UserListDAO extends LinkedList<User> implements IDao<User>{
 
 	@Override
 	public List<User> getAll() {
-
 		try {
 			ResultSet resultSet = dbConManagerSingleton.excecuteQuery("SELECT email, name, user_name,password, u_id, Weight, age, height FROM Users");
 			while (resultSet.next()) {
@@ -39,7 +38,6 @@ public class UserListDAO extends LinkedList<User> implements IDao<User>{
 													   resultSet.getDouble(6),
 													   resultSet.getInt(7),
 													   resultSet.getDouble(8)));
-			
 			}
 			dbConManagerSingleton.close();
 		} catch (SQLException e) {
@@ -51,7 +49,6 @@ public class UserListDAO extends LinkedList<User> implements IDao<User>{
 
 	@Override
 	public User save(User t) {
-		
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		//int rowCount = 0;
@@ -92,8 +89,6 @@ public class UserListDAO extends LinkedList<User> implements IDao<User>{
 		return new User("No Name", "null", "null",null);
 	}
 		
-	
-
 	@Override
 	public void update(User t) {
 

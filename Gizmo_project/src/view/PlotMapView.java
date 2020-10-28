@@ -20,18 +20,15 @@ public class PlotMapView extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private List<TrackPoint> trackpoints;
 
-	private double[] xPixels;
-	private double[] yPixels;
+	private int[] xPixels;
+	private int[] yPixels;
 	
 
 	public PlotMapView(Activity activity) {
 	
 		this.trackpoints = activity.getActivity();
-		
-		xPixels = new double [trackpoints.size()];
-		yPixels = new double [trackpoints.size()];
-	
-		
+		xPixels = new int [trackpoints.size()];
+		yPixels = new int [trackpoints.size()];
 		setBackground(Color.gray);
 	}
 	
@@ -66,16 +63,23 @@ public class PlotMapView extends JPanel {
 		}
 		
 		for(int i = 0; i < trackpoints.size(); i++) {
-			xPixels[i] = ((trackpoints.get(i).getLong() - minLong) / (maxLong - minLong)) * getWidth();
-			yPixels[i] = ((trackpoints.get(i).getLat()  - minLat) /  (maxLat - minLat)  ) * getHeight();
+			xPixels[i] = (int) (((trackpoints.get(i).getLong() - minLong) / (maxLong - minLong)) * getWidth());
+			yPixels[i] = (int) (((trackpoints.get(i).getLat()  - minLat) /  (maxLat - minLat)  ) * getHeight());
+			
+			System.out.println("xVärde: " + xPixels[i] + "yVärde " + yPixels[i]);
+			System.out.println(minLong + "   "  + maxLong + "   "  + minLat+ "  " + maxLat);
+			
+			yPixels[i] = getHeight() - yPixels[i];
 		}
 		
-		Graphics2D g2 = (Graphics2D) g;
-		g2.setColor(Color.green);
+		g.setColor(Color.GREEN);
+		g.drawPolyline(xPixels, yPixels, xPixels.length);
+		
+//		Graphics2D g2 = (Graphics2D) g;
+//		g2.setColor(Color.green);
 		
 		
 		//g2.translate(0, getHeight());
-		AffineTransform toCenterAt = new AffineTransform();
 		
 		
 		
@@ -89,16 +93,16 @@ public class PlotMapView extends JPanel {
 		
 	
 		
-		for(int i = 0; i < trackpoints.size(); i++) {
-			if((i + 1) == trackpoints.size()) {}
-			
-			else {
-				
-				g2.draw(new Line2D.Double(xPixels[i] , yPixels[i], xPixels[i+1] , yPixels[i+1]));
-				//System.out.println(xPixels[i] +"   " + yPixels[i] );
-			}
-		
-		}		
+//		for(int i = 0; i < trackpoints.size(); i++) {
+//			if((i + 1) == trackpoints.size()) {}
+//			
+//			else {
+//				
+//				g2.draw(new Line2D.Double(xPixels[i] , yPixels[i], xPixels[i+1] , yPixels[i+1]));
+//				//System.out.println(xPixels[i] +"   " + yPixels[i] );
+//			}
+//		
+//		}		
 	}
 }
 
