@@ -46,7 +46,7 @@ class ActivityTest {
 	void setUp() throws Exception {
 		
 		dataPoint = new LinkedList<String>();
-		activity = new Activity("SuperActivity");
+		activity = new Activity();
 	}
 
 	@AfterEach

@@ -14,17 +14,12 @@ public class Import {
 
     private static Import instance;
 
-    private Import(){
-        readAll();
-    }
+    private Import(){}
 
-    public static Import getInstance(String fName){
+    public static Import getInstance(){
         if(instance == null){
-            fileName = fName;
             instance = new Import();
         }
-            
-
         return instance;
     }
 
@@ -33,7 +28,6 @@ public class Import {
 
     private List<TrackPoint> trackPointList;
     private List<String>     dataPoint;
-    private static String fileName;
     private Scanner s;
     
 
@@ -61,17 +55,10 @@ public class Import {
 		dataPoint.add(holdLine);
 		return dataPoint;
 	}
-
-    public List<TrackPoint> getList() {    
-       if (trackPointList == null)      
-       trackPointList = readAll();    
-        return trackPointList;    
-   }  
        
-
   
-	public List<TrackPoint> readAll(){
-        trackPointList = new LinkedList<TrackPoint>();
+	public List<TrackPoint> readAll(String fileName){
+       trackPointList = new LinkedList<TrackPoint>();
     	try {
 			s = new Scanner(new BufferedReader(new FileReader(fileName)));
 			
@@ -83,9 +70,8 @@ public class Import {
 					FirstLine = false; 
 					s.next();
 					}	
-				else {
-					trackPointList.add(TrackPointDAO.getInstance().save(new TrackPoint(collectPoints(s.next()))));
-					
+				else {	
+					trackPointList.add(new TrackPoint(0,collectPoints(s.next())));
 				}			
 			}
 			

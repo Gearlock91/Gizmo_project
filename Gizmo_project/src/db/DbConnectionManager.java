@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 /**
  * DbConnectionManager is a Singleton object that manages the
  * connection to the database.
@@ -22,6 +23,7 @@ import java.sql.Statement;
  * @author awi (�ke Wallin)
  * @version 2018-10-18
  */
+
 public class DbConnectionManager {
 	
 	private static final String DB_NAME = "Projektet"; // Change value to your database

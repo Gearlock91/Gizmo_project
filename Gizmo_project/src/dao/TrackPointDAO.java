@@ -8,6 +8,7 @@ import java.util.List;
 
 import db.DbConnectionManager;
 import model.TrackPoint;
+import model.User;
 
 public class TrackPointDAO extends LinkedList<TrackPoint> implements IDao<TrackPoint>{
 
@@ -32,48 +33,82 @@ public class TrackPointDAO extends LinkedList<TrackPoint> implements IDao<TrackP
 	
 	
 
-	@Override
-	public TrackPoint get(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public TrackPoint get(int aid) {
+//		return ;
+//	}
 
 	@Override
 	public List<TrackPoint> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			
+			List<String> tp = new LinkedList<String>();
+			
+			ResultSet resultSet = dbConManagerSingleton.excecuteQuery("SELECT date, time, elapsed_time, longitude, latitude, altitude, distance, heart_rate, speed, cadance, a_id FROM TrackPoints");
+			while (resultSet.next()) {
+				
+				tp.add(resultSet.getString(1));
+				tp.add(resultSet.getString(2)); 
+				tp.add(String.valueOf((resultSet.getInt(3))));
+				tp.add(String.valueOf(resultSet.getDouble(4))); 
+				tp.add(String.valueOf(resultSet.getDouble(5))); 
+				tp.add(String.valueOf(resultSet.getDouble(6))); 
+				tp.add(String.valueOf(resultSet.getDouble(7))); 
+				tp.add(String.valueOf(resultSet.getDouble(8))); 
+				tp.add(String.valueOf(resultSet.getDouble(9)));
+				tp.add(String.valueOf(resultSet.getDouble(10)));
+				tp.add(String.valueOf(resultSet.getInt(11))); 
+				
+				TrackPointDAO.getInstance().add(new TrackPoint(tp));
+				
+				tp.clear();
+			}
+			dbConManagerSingleton.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return TrackPointDAO.getInstance();
 	}
 
 	
 	@Override
 	public TrackPoint save(TrackPoint t) {
 		
-		
+	
+	
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		//int rowCount = 0;
+		int rowCount = 0;
 		//boolean saveSucess = false;
 		try {
 			//****This is just for checking the 'save' is a sucess. Count rows before save... ***
-		//	resultSet = dbConManagerSingleton.excecuteQuery("SELECT COUNT(id) FROM students");
-		//	resultSet.next();
-		//	rowCount = resultSet.getInt(1);
-			//System.out.println(rowCount); // Debug print
+			
+			resultSet = dbConManagerSingleton.excecuteQuery("SELECT COUNT(a_id) FROM Activities");
+			resultSet.next();
+			rowCount = resultSet.getInt(1);
+			System.out.println(rowCount); // Debug print
 			
 			//*******This is the main 'save' operation ***************************
 			preparedStatement = dbConManagerSingleton.prepareStatement(
-											  "INSERT INTO TrackPoints (date, time, elapsed_time, longitude, latitude, altitude, distance, heart_rate, speed, cadance) " +
-											  "VALUES (?, ?, ?, ? , ?, ? , ?, ? , ? , ? );");
-			preparedStatement.setString(1, t.getDate());
-			preparedStatement.setString(2, t.getTime());
-			preparedStatement.setInt   (3, t.getElapsedTime());
-			preparedStatement.setDouble(4, t.getLong());
-			preparedStatement.setDouble(5, t.getLat());
-			preparedStatement.setDouble(6, t.getAlt());
-			preparedStatement.setDouble(7, t.getDistance());
-			preparedStatement.setDouble(8, t.getHart());
-			preparedStatement.setDouble(9,t.getSpeed());
-			preparedStatement.setDouble(10,t.getCadence());
+											  "INSERT INTO TrackPoints (a_id,date, time, elapsed_time, longitude, latitude, altitude, distance, heart_rate, speed, cadance) " +
+											  "VALUES (?,?, ?, ?, ? , ?, ? , ?, ? , ? , ? );");
+			
+			resultSet.next();
+			
+			preparedStatement.setInt(1, rowCount++);
+
+			preparedStatement.setString(2, t.getDate());
+			preparedStatement.setString(3, t.getTime());
+			preparedStatement.setInt   (4, t.getElapsedTime());
+			preparedStatement.setDouble(5, t.getLong());
+			preparedStatement.setDouble(6, t.getLat());
+			preparedStatement.setDouble(7, t.getAlt());
+			preparedStatement.setDouble(8, t.getDistance());
+			preparedStatement.setDouble(9, t.getHeart());
+			preparedStatement.setDouble(10,t.getSpeed());
+			preparedStatement.setDouble(11,t.getCadence());
 			preparedStatement.execute();
 			resultSet = preparedStatement.getResultSet();
 			//resultSet.next();
@@ -96,7 +131,7 @@ public class TrackPointDAO extends LinkedList<TrackPoint> implements IDao<TrackP
 	}
 
 	@Override
-	public void update(TrackPoint t, String[] param) {
+	public void update(TrackPoint t/**, String[] param*/) {
 		// TODO Auto-generated method stub
 		
 	}

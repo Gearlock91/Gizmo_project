@@ -4,6 +4,7 @@ import java.util.List;
 
 public class TrackPoint {
 
+	private int aId;
 	private String date;
 	private String time;
 	private int elapsedTime;
@@ -16,8 +17,7 @@ public class TrackPoint {
 	private double cadence;
 
 	
-	public TrackPoint(List<String> t) {
-		
+	public TrackPoint(int i,List<String> t) {
 		date = t.get(0);
 		time = t.get(1);
 		elapsedTime = Integer.parseInt(t.get(2));
@@ -29,6 +29,22 @@ public class TrackPoint {
 		speed = Double.parseDouble(t.get(8));
 		cadence = Double.parseDouble(t.get(9));
 		
+		
+	}
+	
+	public TrackPoint(List<String> t) {
+		date = t.get(0);
+		time = t.get(1);
+		elapsedTime = Integer.parseInt(t.get(2));
+		latitude = Double.parseDouble(t.get(3));
+		longitude = Double.parseDouble(t.get(4));
+		altitude = Double.parseDouble(t.get(5));
+		distance = Double.parseDouble(t.get(6));
+		heartRate = Double.parseDouble(t.get(7));
+		speed = Double.parseDouble(t.get(8));
+		cadence = Double.parseDouble(t.get(9));
+		aId = Integer.parseInt(t.get(10));
+		
 	}
 	
 	public TrackPoint(TrackPoint t) {
@@ -39,7 +55,7 @@ public class TrackPoint {
 		longitude = t.getLong();
 		altitude = t.getAlt();
 		distance = t.getDistance();
-		heartRate = t.getHart();
+		heartRate = t.getHeart();
 		speed = t.getSpeed();
 		cadence = t.getCadence();
 	}
@@ -72,7 +88,7 @@ public class TrackPoint {
 		return distance;
 		
 	}
-	public double getHart() {
+	public double getHeart() {
 		return heartRate;
 		
 	}
@@ -83,6 +99,10 @@ public class TrackPoint {
 	public double getCadence() {
 		return cadence;
 		
+	}
+	
+	public int getAID() {
+		return aId;
 	}
 	
 	@Override
