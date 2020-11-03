@@ -39,7 +39,6 @@ import model.Activity;
 import model.TrackPoint;
 import model.User;
 
-
 public class MenuScreen extends JPanel {
 	private static final long serialVersionUID = 1L;
 	int j = 0;
@@ -78,7 +77,6 @@ public class MenuScreen extends JPanel {
 			JComboBox<String> activityProfile = new JComboBox<String>(activities);
 			JTextField selectFile = 	new JTextField("Press enter...");
 			
-		
 			selectFile.addActionListener(e2 -> {
 				JFileChooser chooser = new JFileChooser();
 				
@@ -89,15 +87,11 @@ public class MenuScreen extends JPanel {
 				
 				if(returnVal == JFileChooser.APPROVE_OPTION) {selectFile.setText((chooser.getSelectedFile().toPath().toString()));}
 			});
-		
-			
-			
-			
+
 			fieldBoxOfDoom.add(activityName);
 			fieldBoxOfDoom.add(activityProfile);
 			fieldBoxOfDoom.add(selectFile);
 			mainFileChooser.add(fieldBoxOfDoom);
-			
 			
 			int valueR = JOptionPane.showConfirmDialog(frame,mainFileChooser, "Import...", JOptionPane.OK_CANCEL_OPTION , 2);
 			if(valueR == JOptionPane.OK_OPTION) {
@@ -107,7 +101,6 @@ public class MenuScreen extends JPanel {
 				 createMenuItems(activity);
 				 revalidate();
 				 repaint();
-				 
 			}
 		});
 		
@@ -127,11 +120,9 @@ public class MenuScreen extends JPanel {
 		});
 		
 		file.add(openFile);
-		
 		profile.add(myProfile);
 		profile.add(logout);
-		
-		
+
 		bar.add(file);
 		bar.add(activity);
 		bar.add(profile);
@@ -142,7 +133,7 @@ public class MenuScreen extends JPanel {
 		JPanel panel = new JPanel(new GridLayout(7,1));
 		JLabel hrate = new JLabel("Average heart rate: " + String.valueOf(aktivitet.getAvgHeartRate()) + "Bpm");
 		JLabel distance = new JLabel("Distance: " +String.valueOf(aktivitet.getDistance()) + " meter");
-		JLabel cadence = new JLabel("Cadence:  " +String.valueOf(aktivitet.getAvgCadance()));
+		JLabel cadence = new JLabel("Cadence:  " + String.valueOf(aktivitet.getAvgCadance()));
 		JLabel time = new JLabel("Total time: " +aktivitet.getTotalTime());
 		JLabel start = new JLabel("Start time: " + String.valueOf(aktivitet.getStartTime()));
 		JLabel end	= new JLabel("End Time:" + aktivitet.getEndTime());
@@ -150,7 +141,9 @@ public class MenuScreen extends JPanel {
 		JLabel minHeart = new JLabel("Min Heart rate: " + String.valueOf(aktivitet.getMinHeart() + "Bpm"));
 		JLabel avgSpeed = new JLabel("Average speed: " + String.valueOf(aktivitet.getAvgSpeed()  + "km/h"));
 		JLabel maxSpeed = new JLabel("Max speed: " + String.valueOf(aktivitet.getMaxSpeed()  + "km/h"));
-		
+		JLabel MaxAngle = new JLabel("Max angle: " +  String.format("%.2f", aktivitet.getAngle(0)) + " Degreese");
+		JLabel MinAngle = new JLabel("Min angle: " +  String.format("%.2f", aktivitet.getAngle(1)) + " Degreese");
+		//JLabel avgAngle = new JLabel("Avg angle: " +  String.format("%.2f", aktivitet.getAvgAngle()) + " Degreese");
 		
 		panel.add(distance);
 		panel.add(cadence);
@@ -162,6 +155,9 @@ public class MenuScreen extends JPanel {
 		panel.add(hrate);
 		panel.add(avgSpeed);
 		panel.add(maxSpeed);
+		panel.add(MaxAngle);
+		panel.add(MinAngle);
+	//	panel.add(avgAngle);
 		return panel;
 	}
 	

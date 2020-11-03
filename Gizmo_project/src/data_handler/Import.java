@@ -22,14 +22,11 @@ public class Import {
         }
         return instance;
     }
-
     // -------- END SINGLETON PART --------
     // -------- BEGIN import       --------
-
     private List<TrackPoint> trackPointList;
     private List<String>     dataPoint;
     private Scanner s;
-    
 
     public List<String> collectPoints(String s){
 		dataPoint = new LinkedList<String>();
@@ -56,7 +53,6 @@ public class Import {
 		return dataPoint;
 	}
        
-  
 	public List<TrackPoint> readAll(String fileName){
        trackPointList = new LinkedList<TrackPoint>();
     	try {

@@ -11,10 +11,8 @@ import dao.ActivityDAO;
 import dao.TrackPointDAO;
 import dao.UserListDAO;
 
-
 public class MainFrame extends JFrame{
 
-	
 	private static final long serialVersionUID = 1L;
 	
 	public MainFrame() {
@@ -30,7 +28,6 @@ public class MainFrame extends JFrame{
         MenuScreen mScreen = new MenuScreen(this);
         
         setJMenuBar(mScreen.createMenuBar());
-       
         
         add(logInSc);
         
@@ -39,8 +36,5 @@ public class MainFrame extends JFrame{
         	add(mScreen);
         	validate();
         }
-        
-        
 	}
-
 }

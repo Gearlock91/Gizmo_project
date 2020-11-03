@@ -20,11 +20,7 @@ import model.User;
 
 public class ProfileView extends JPanel {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	
 	User activeUser = null;
 	
 	public ProfileView() {
@@ -43,7 +39,6 @@ public class ProfileView extends JPanel {
 		//myProfilePanel.add(activityOftheMonth);
 	}
 
-	
 	public JPanel aboutMe() {
 		
 		JPanel name = new JPanel(new GridLayout(1,3,2,2));
@@ -52,26 +47,22 @@ public class ProfileView extends JPanel {
 		JPanel age = new JPanel(new GridLayout(4,1,3,3));
 		JPanel highScoreLabel = new JPanel(new GridLayout(4,1,3,3));
 		
-		
-		
 		for(User a : UserListDAO.getInstance())
 			if(a.getActive())
 				activeUser = a;
 		
 		JLabel fullName = new JLabel(activeUser.getName());
-		
 		JButton enterWeight = new JButton("Enter weight...");
 		JLabel kilo = new JLabel(String.valueOf(activeUser.getWeight()) + " kg");
-		
 		JButton enterAge = new JButton("Enter age...");
 		JLabel ageRepresentation = new JLabel(String.valueOf(activeUser.getAge() + " Years"));
+		
 		enterAge.addActionListener(e -> {
 			ageRepresentation.setText(JOptionPane.showInputDialog("Enter age"));
 			activeUser.setAge(Integer.valueOf(ageRepresentation.getText()));
 			
 		});
 		
-	
 		weight.add(kilo,BorderLayout.CENTER);
 		weight.add(enterWeight, BorderLayout.WEST);
 		
@@ -80,10 +71,8 @@ public class ProfileView extends JPanel {
 			activeUser.setWeight(Double.valueOf(kilo.getText()));
 			});
 		
-		
 		JLabel maxPuls = new JLabel("Max heart rate: " + String.valueOf(activeUser.getMaxHeart()) + " Bpm" ) ;
 		JLabel maxDist = new JLabel("Max distance: "   + String.valueOf(activeUser.getMaxDistance()) + " Meters");
-		
 		JLabel height = new JLabel(String.valueOf(activeUser.getHeight()) + " cm");
 		JButton setHeight = new JButton("Set height");
 		
@@ -94,7 +83,6 @@ public class ProfileView extends JPanel {
 		
 		highScoreLabel.add(height);
 		highScoreLabel.add(setHeight);
-		
 		
 		age.add(ageRepresentation);
 		age.add(enterAge);
@@ -137,7 +125,5 @@ public class ProfileView extends JPanel {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	    }
-	
-		
+	    }	
 }

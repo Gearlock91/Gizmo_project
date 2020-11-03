@@ -21,7 +21,6 @@ import dao.TrackPointDAO;
 import dao.UserListDAO;
 import model.User;
 
-
 public class LoginScreen extends JPanel{
 
 	private static final long serialVersionUID = 1L;
@@ -102,7 +101,6 @@ public class LoginScreen extends JPanel{
     	JPanel r = new JPanel(new BorderLayout(5,5));
     	JPanel rLabel = new JPanel(new GridLayout(4,1));
     	rLabel.add(new JLabel("Email to register: "));
-    	
     	rLabel.add(new JLabel("Name: "));
     	rLabel.add(new JLabel("Username: "));
     	rLabel.add(new JLabel("Password: "));
@@ -110,7 +108,6 @@ public class LoginScreen extends JPanel{
     	JPanel rControl = new JPanel(new GridLayout(4,1));
     	JTextField textFields[] = new JTextField[3];
     	JPasswordField pass = new JPasswordField();
-    	
     	boolean correctRegistration = true;
     	
     	for(int i = 0; i < textFields.length; i++) {
@@ -118,7 +115,6 @@ public class LoginScreen extends JPanel{
     	}
     	rControl.add(pass);
     	r.add(rControl, BorderLayout.CENTER);
-
     	JOptionPane.showMessageDialog(frame, r, "Register a user",JOptionPane.OK_CANCEL_OPTION);
     	
     	for(int i = 0 ; i < textFields.length; i++) {
@@ -135,9 +131,7 @@ public class LoginScreen extends JPanel{
     				break;
     			}		
     		}
-    		
-    	}
-    	
+    	}	
     	for(JTextField tf : textFields) {
     		if(tf.getText().isBlank()) {
     			correctRegistration = false;
