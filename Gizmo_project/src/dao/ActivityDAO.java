@@ -16,6 +16,7 @@ public class ActivityDAO extends LinkedList<Activity> implements IDao<Activity>{
 
 	private static final long serialVersionUID = 1L;
 	
+	
 	static DbConnectionManager dbConManagerSingleton = null;
 	private static ActivityDAO instance;
 	
