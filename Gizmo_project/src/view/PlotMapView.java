@@ -19,10 +19,8 @@ public class PlotMapView extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 	private List<TrackPoint> trackpoints;
-
 	private int[] xPixels;
 	private int[] yPixels;
-	
 
 	public PlotMapView(Activity activity) {
 	
@@ -32,8 +30,6 @@ public class PlotMapView extends JPanel {
 		setBackground(Color.gray);
 	}
 	
-
-
 // Det h�r �r metoden som ritar ut grafiken. Se hur enkelt det blir
 // med hj�lp av arrayerna och metoden drawPolyline.
 	@Override
@@ -65,44 +61,12 @@ public class PlotMapView extends JPanel {
 		for(int i = 0; i < trackpoints.size(); i++) {
 			xPixels[i] = (int) (((trackpoints.get(i).getLong() - minLong) / (maxLong - minLong)) * getWidth());
 			yPixels[i] = (int) (((trackpoints.get(i).getLat()  - minLat) /  (maxLat - minLat)  ) * getHeight());
-			
-			System.out.println("xVärde: " + xPixels[i] + "yVärde " + yPixels[i]);
-			System.out.println(minLong + "   "  + maxLong + "   "  + minLat+ "  " + maxLat);
-			
 			yPixels[i] = getHeight() - yPixels[i];
 		}
 		
 		g.setColor(Color.GREEN);
 		g.drawPolyline(xPixels, yPixels, xPixels.length);
-		
-//		Graphics2D g2 = (Graphics2D) g;
-//		g2.setColor(Color.green);
-		
-		
-		//g2.translate(0, getHeight());
-		
-		
-		
-		
-//		g2.translate(0, getHeight());
-//		g2.rotate(((Math.PI) / 2) * -1);
-		
-	//	g2.drawRect(0, 0, 100, 100);
-//		g2.translate(0, getHeight());
-//		g2.rotate(Math.PI/2 * -1);
-		
-	
-		
-//		for(int i = 0; i < trackpoints.size(); i++) {
-//			if((i + 1) == trackpoints.size()) {}
-//			
-//			else {
-//				
-//				g2.draw(new Line2D.Double(xPixels[i] , yPixels[i], xPixels[i+1] , yPixels[i+1]));
-//				//System.out.println(xPixels[i] +"   " + yPixels[i] );
-//			}
-//		
-//		}		
+				
 	}
 }
 

@@ -133,7 +133,7 @@ public class MenuScreen extends JPanel {
 		JPanel panel = new JPanel(new GridLayout(7,1));
 		JLabel hrate = new JLabel("Average heart rate: " + String.valueOf(aktivitet.getAvgHeartRate()) + "Bpm");
 		JLabel distance = new JLabel("Distance: " +String.valueOf(aktivitet.getDistance()) + " meter");
-		JLabel cadence = new JLabel("Cadence:  " +String.valueOf(aktivitet.getAvgCadance()));
+		JLabel cadence = new JLabel("Cadence:  " + String.valueOf(aktivitet.getAvgCadance()));
 		JLabel time = new JLabel("Total time: " +aktivitet.getTotalTime());
 		JLabel start = new JLabel("Start time: " + String.valueOf(aktivitet.getStartTime()));
 		JLabel end	= new JLabel("End Time:" + aktivitet.getEndTime());
@@ -141,6 +141,9 @@ public class MenuScreen extends JPanel {
 		JLabel minHeart = new JLabel("Min Heart rate: " + String.valueOf(aktivitet.getMinHeart() + "Bpm"));
 		JLabel avgSpeed = new JLabel("Average speed: " + String.valueOf(aktivitet.getAvgSpeed()  + "km/h"));
 		JLabel maxSpeed = new JLabel("Max speed: " + String.valueOf(aktivitet.getMaxSpeed()  + "km/h"));
+		JLabel MaxAngle = new JLabel("Max angle: " +  String.format("%.2f", aktivitet.getAngle(0)) + " Degreese");
+		JLabel MinAngle = new JLabel("Min angle: " +  String.format("%.2f", aktivitet.getAngle(1)) + " Degreese");
+		//JLabel avgAngle = new JLabel("Avg angle: " +  String.format("%.2f", aktivitet.getAvgAngle()) + " Degreese");
 		
 		panel.add(distance);
 		panel.add(cadence);
@@ -152,6 +155,9 @@ public class MenuScreen extends JPanel {
 		panel.add(hrate);
 		panel.add(avgSpeed);
 		panel.add(maxSpeed);
+		panel.add(MaxAngle);
+		panel.add(MinAngle);
+	//	panel.add(avgAngle);
 		return panel;
 	}
 	

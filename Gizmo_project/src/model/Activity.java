@@ -132,6 +132,55 @@ public class Activity {
 		return (speed / trackPoints.size());
 	}
 	
+	public double getAngle(int option) {
+		double kMax = 0;
+		double kMin = 0;
+		double k = 0;
+		
+			for(int i = 0; i < trackPoints.size() - 1; i++) {
+				double y1 =  trackPoints.get(i).getAlt();
+				double y2 =  trackPoints.get(i + 1).getAlt();
+				double x1 =  Double.valueOf(trackPoints.get(i).getElapsedTime());
+				double x2 =  Double.valueOf(trackPoints.get(i + 1).getElapsedTime());
+				
+				k = ((y2 - y1) / (x2 - x1));
+				
+				if(k > kMax)
+					kMax = k;
+					
+				if(k < kMin)
+					kMin = k;	
+			}	
+			switch (option){
+				case 0:
+				return Math.atan(kMax) * (180/Math.PI);
+				case 1:
+				return Math.atan(kMin) * (180/Math.PI);
+			}
+			return 0;
+	}
+//	public double getAvgAngle(){
+//		int k = 0;
+//		double angle = 0;
+//		
+//			for(int i = 0; i < trackPoints.size() - 1; i++) {
+//				int y1 =  (int) (trackPoints.get(i).getAlt());
+//				int y2 =  (int) (trackPoints.get(i + 1).getAlt());
+//				int x1 =   Integer.valueOf(trackPoints.get(i).getElapsedTime());
+//				int x2 =   Integer.valueOf(trackPoints.get(i + 1).getElapsedTime());
+//				
+//				k =  ((y2 - y1) / (x2 - x1));
+//			}
+//			
+//			System.out.println(k);
+//			
+//			angle = (k / trackPoints.size());
+//			
+//			System.out.println(angle);
+//		
+//		return Math.atan(angle) * (180/Math.PI);
+//	}
+//	
 	
 	
 	public int size() {
